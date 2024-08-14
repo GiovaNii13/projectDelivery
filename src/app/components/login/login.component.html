@@ -1,0 +1,20 @@
+<app-header></app-header>
+<form class="d-flex align-center justify-center"
+    novalidate [formGroup]="loginFormGroup" (ngSubmit)="teste()">
+    <div class="d-flex flex-column box-login justify-center align-center">
+        <h3 class="poppins-semibold">Entrar</h3>
+        <div class="label-email">
+            <h5 class="poppins-regular label">Email</h5>
+            <input type="email" class="form-control" id="email"
+             formControlName="email">
+        </div>
+        <div class="label-password">
+            <h5 class="poppins-regular label">Senha</h5>
+            <input type="password" class="form-control" id="password" 
+             formControlName="password">
+        </div>
+        <button class="forget-btn poppins-semibold">Esqueceu a senha</button>
+        <button class="login-btn btn poppins-semibold" type="submit">Entrar</button>
+        <p>Ainda não tem uma conta? <span style="color: rgb(109, 211, 230);">Cadastre-se</span></p>
+    </div>
+</form>

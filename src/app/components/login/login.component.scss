@@ -1,0 +1,38 @@
+.box-login {
+    width: 400px;
+    height: 400px;
+}
+
+.forget-btn {
+    margin: 6px 0;
+    background-color: transparent;
+    color: rgb(153, 153, 153);
+    border: none;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.login-btn {
+    background-color: #4d2033;
+    color: #FFFFFF;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.btn {
+    width: 350px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.form-control {
+    width: 350px !important;
+    border-color: rgb(197, 197, 197);
+}
+
+.label {
+    font-size: 25px;
+    margin: 20px 0;
+}   
