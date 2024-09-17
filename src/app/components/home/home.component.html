@@ -1,0 +1,36 @@
+<div class="header">
+    <button class="btn-login poppins-light" type="button" (click)="loginOn = true;">Entrar</button>
+</div>
+<div class="container-infos">
+    <div class="infos">
+        <div class="d-flex align-center infos-title">
+            <img src="../../../assets/imgs/darkIcon.png" alt="">
+            <div>
+                <h4>Ponto do açai</h4>
+                <h6>Açaiteria</h6>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="store-itens">
+            <p class="poppins-light">Início</p>
+            <p class="poppins-light">Carrinho</p>
+            <p class="poppins-light">Pedidos</p>
+        </div>
+    </div>
+</div>
+
+<div class="home-options">
+    <div class="line-row"></div>
+    <div class="options">
+        <p>Mais Vendidos</p>
+        <p>Monte o seu</p>
+        <p>Açai</p>
+    </div>
+    <div class="line-row"></div>
+</div>
+
+<div *ngIf="loginOn" class="overlay">
+    <div class="login">
+        <app-login (close)="closeComponent()"></app-login>
+    </div>
+</div>

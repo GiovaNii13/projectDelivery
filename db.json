@@ -1,19 +1,42 @@
 {
-    "users": [
-      {
-        "id": "750d",
-        "nome": "Giovani Alves",
-        "email": "teste@gmail.com",
-        "senha": "123456789",
-        "endereco": {
+  "users": [
+    {
+      "id": "750d",
+      "name": "Giovani Alves",
+      "email": "teste@gmail.com",
+      "password": "123456789",
+      "adress": [
+        {
           "cep": "17402652",
-          "numero": "02",
+          "number": "02",
           "complemento": "casa",
           "rua": "Rua Naudert da Silva Braga",
           "bairro": "Jardim São Benedito",
-          "cidade": "Garça",
-          "estado": "SP"
+          "city": "Garça"
+        },
+        {
+          "cep": "12345678",
+          "number": "10",
+          "complemento": "apto 101",
+          "street": "Avenida Paulista",
+          "bairro": "Bela Vista",
+          "city": "São Paulo"
         }
-      }
-    ]
+      ]
+    },
+    {
+      "id": "44bb",
+      "name": "Giovani Alves Nunes",
+      "email": "gi_8nunes@hotmail.com",
+      "password": "teste123",
+      "confirmPassword": "teste123"
+    },
+    {
+      "id": "1fdb",
+      "name": "Giovani Alves Nunes",
+      "email": "luciana.a.nunes@hotmail.com",
+      "password": "teste123",
+      "confirmPassword": "teste123"
+    }
+  ]
 }

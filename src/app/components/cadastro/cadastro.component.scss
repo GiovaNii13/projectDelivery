@@ -1,6 +1,16 @@
-.box-login {
-    width: 400px;
-    height: 400px;
+.header-register {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    svg {
+        margin: 10px 0px 0px 0;
+        cursor: pointer;
+        &:hover {
+            color: red;
+        }
+    }
 }
 
 .forget-btn {
@@ -22,7 +32,7 @@
 }
 
 .btn {
-    width: 350px;
+    width: 250px;
     height: 40px;
     border-radius: 5px;
 }
@@ -34,4 +44,8 @@
 
 .form-control {
     border-color: rgb(197, 197, 197);
+}
+
+.col-8 {
+    width: 90% !important;
 }
