@@ -34,7 +34,6 @@ export class CadastroComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       confirmPassword: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-      birthDate: [null, [Validators.required]]
     })
   }
 

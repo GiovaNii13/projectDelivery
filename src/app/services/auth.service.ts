@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  baseUrlUsers = 'http://localhost:3000/users'
+  baseUrlUsers = 'http://localhost:3000/users';
 
   constructor(
     private http: HttpClient
   ) { }
 
   registerUser(user: any): Observable<any> {
-    return this.http.post<any>(this.baseUrlUsers, user)
+    return this.http.post<any>(this.baseUrlUsers, user);
   }
 }

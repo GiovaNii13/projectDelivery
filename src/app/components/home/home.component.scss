@@ -11,20 +11,42 @@
     justify-content: flex-end;
 }
 
+.infos-title {
+    .poppins-regular {
+        font-size: 1.5rem;
+    }
+
+    .poppins-bold {
+        font-size: 2.5rem;
+    }
+
+    .poppins-extralight {
+        color: #00bf63;
+    }
+
+    button {
+        width: 12px;
+        height: 12px;
+        border: none;
+        border-radius: 50%;
+        background-color: #00bf63;
+    }
+}
+
 .btn-login {
     background-color: #8cc63f;
     color: #512036;
     border-radius: 10px;
     border: none;
-    padding: 7px 20px;
-    max-height: 40px;
-    margin: 20px;
+    padding: 0.7rem 2rem;
+    max-height: 2.5rem;
+    margin: 1rem;
 }
 
 .container-infos {
     border: solid 1px black;
     width: 50vw;
-    height: 30vh;
+    height: 20vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,22 +65,22 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 70px;
+    padding: 0 5rem;
 
     img {
-        width: 120px;
-        height: 120px;
+        width: 10rem;
+        height: 10rem;
         border-radius: 50%;
     }
 
     .line {
         width: 1px;
         background-color: #512036;
-        height: 20vh;
+        height: 16vh;
     }
 
     .infos-title {
-        gap: 20px;
+        gap: 1.25rem;
     }
 }
 
@@ -72,23 +94,49 @@
 }
 
 .home-options {
-    margin-top: 180px;
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
 
-    .options {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        width: 100%;
-        text-align: center;
+.options {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    column-gap: 4rem; 
+    margin: -10px 0 -25px 200px;
+
+    p {
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        border: 1px solid #8cc63f;
+        background-color: white;
+        color: #512036;
+        transition: background-color 0.3s, color 0.3s;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #8cc63f;
+            color: white;
+        }
+
+        &:first-child {
+            background-color: #512036;
+            color: white;
+        }
     }
-    
-    .line-row {
-        height: 1px;
-        background-color: #512036;
-        width: 100%;
-        margin: 1rem 0;
-    }
-    
+}
+
+.line-row {
+    height: 1px;
+    background-color: #512036;
+    width: 100%;
+    margin: 1rem 0;
 }
 
 .overlay {
@@ -101,14 +149,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 999; 
+    z-index: 999;
 }
 
 .login {
-    width: 40vw;
-    height: 80vh;
+    width: 30vw;
+    min-height: 50vh;
     background-color: white;
     border: solid 1px #512036;
     border-radius: 10px;
     z-index: 1000;
-}   
+}
