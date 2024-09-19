@@ -94,10 +94,33 @@
 }
 
 .store-itens {
-    p {
+    .store-itens-unit {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+        transition: color 0.3s, filter 0.3s;
+
+        img {
+            width: 40px;
+            transition: filter 0.3s;
+        }
+
+        p {
+            margin: 0;
+            transition: color 0.3s;
+        }
+
         &:hover {
-            cursor: pointer;
-            color: #8cc63f;
+            img {
+                filter: brightness(0) saturate(100%) invert(45%) sepia(36%) saturate(1500%) hue-rotate(90deg) brightness(95%) contrast(90%); 
+                cursor: pointer;
+            }
+
+            p {
+                color: #8cc63f;
+                cursor: pointer;
+            }
         }
     }
 }

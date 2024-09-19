@@ -13,9 +13,18 @@
         </div>
         <div class="line"></div>
         <div class="store-itens">
-            <p class="poppins-light">Início</p>
-            <p class="poppins-light">Carrinho</p>
-            <p class="poppins-light">Pedidos</p>
+            <div class="store-itens-unit">
+                <img src="../../../assets/icons/1.svg" alt="">
+                <p class="poppins-light">Início</p>
+            </div>
+            <div class="store-itens-unit" (click)="shoppingCartOn()">
+                <img src="../../../assets/icons/2.svg" alt="">
+                <p class="poppins-light">Carrinho</p>
+            </div>
+            <div class="store-itens-unit" (click)="ordersOn()">
+                <img src="../../../assets/icons/3.svg" alt="">
+                <p class="poppins-light">Pedidos</p>
+            </div>
         </div>
     </div>
 </div>
@@ -23,7 +32,6 @@
 <div class="home-options">
     <div class="line-row"></div>
     <div class="options">
-        <p>Mais Vendidos</p>
         <p>Monte o seu</p>
         <p>Açai</p>
     </div>

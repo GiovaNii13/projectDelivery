@@ -16,10 +16,12 @@
 .register-text {
     color: rgb(109, 211, 230);
     cursor: pointer;
+    font-weight: bold;
 }
 
 .login-btn {
     margin-top: 15px;
+    margin-bottom: 20px;
     background-color: #4d2033;
     color: #FFFFFF;
     &:hover {
@@ -58,7 +60,7 @@
 
 .register {
     width: 40vw;
-    height: 80vh;
+    min-height: 55vh;
     background-color: white;
     border: solid 1px #512036;
     border-radius: 10px;

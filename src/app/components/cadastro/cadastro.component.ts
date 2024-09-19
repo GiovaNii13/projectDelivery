@@ -56,6 +56,7 @@ export class CadastroComponent implements OnInit {
 
   registerSubmit() {
   if (this.registerFormGroup.valid) {
+    this.closeRegisterComponent();
     this.authService.registerUser(this.registerFormGroup.value).subscribe(
       response => {
         console.log('Usuário cadastrado com sucesso:', response);
