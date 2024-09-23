@@ -219,3 +219,12 @@
         column-gap: 1rem;
     }
 }
+
+.register {
+    width: 40vw;
+    min-height: 55vh;
+    background-color: white;
+    border: solid 1px #512036;
+    border-radius: 10px;
+    z-index: 1000;
+}

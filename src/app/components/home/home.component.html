@@ -1,5 +1,6 @@
 <div class="header">
-    <button class="btn-login poppins-light" type="button" (click)="loginOn = true;">Entrar</button>
+    <button *ngIf="!logged" class="btn-login poppins-light" type="button" (click)="loginOn = true;">Entrar</button>
+    <button *ngIf="logged" class="btn-login poppins-light" type="button" (click)="logout()">Sair</button>
 </div>
 <div class="container-infos">
     <div class="infos">
@@ -8,7 +9,7 @@
             <div class="title-container">
                 <h4 class="poppins-bold">Ponto do açai</h4>
                 <h6 class="poppins-regular">Açaiteria</h6>
-                <p class="poppins-extralight"> <button></button> Aberto até às 22:00</p>
+                <p class="poppins-extralight"> Aberto até às 22:00</p>
             </div>
         </div>
         <div class="line"></div>
@@ -25,6 +26,11 @@
                 <img src="../../../assets/icons/3.svg" alt="">
                 <p class="poppins-light">Pedidos</p>
             </div>
+            <div *ngIf="logged" class="store-itens-unit" (click)="profileOn = true">
+                <img src="../../../assets/icons/3.svg" alt="">
+                <p class="poppins-light">Perfil</p>
+            </div>
+            
         </div>
     </div>
 </div>
@@ -40,6 +46,12 @@
 
 <div *ngIf="loginOn" class="overlay">
     <div class="login">
-        <app-login (close)="closeComponent()"></app-login>
+        <app-login (logged)="onLoginSuccess($event)" (close)="closeComponent()"></app-login>
+    </div>
+</div>
+
+<div *ngIf="profileOn" class="overlay">
+    <div class="register">
+        <app-my-profile></app-my-profile>
     </div>
 </div>

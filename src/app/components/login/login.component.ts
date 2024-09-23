@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { CadastroComponent } from "../cadastro/cadastro.component";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,13 +20,15 @@ export class LoginComponent implements OnInit {
     this.close.emit();
   }
   loginFormGroup!: FormGroup;
-  email = 'giovani.a.n13@gmail.com';
-  password = 'Teste123'
+  email = '';
+  password = ''
   showPassword: boolean = false;
   registerOn: boolean = false;
+  @Output() logged = new EventEmitter<boolean>();
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +49,22 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  login() {
+    const email = this.loginFormGroup.get('email')?.value;
+    const password = this.loginFormGroup.get('password')?.value;
+    this.authService.login(email, password).subscribe(users => {
+      if (users.length > 0) {
+        const user = users[0];
+        console.log('Login bem-sucedido:', user);
+        localStorage.setItem('loggedUser', JSON.stringify(user));
+        this.logged.emit(true);
+      } else {
+        console.log('Falha no login: Email ou senha inválidos!');
+        alert('Email ou senha inválidos!');
+      }
+    });
+  }
+  
   teste() {
     console.log(this.loginFormGroup.value);
   }

@@ -15,4 +15,12 @@ export class AuthService {
   registerUser(user: any): Observable<any> {
     return this.http.post<any>(this.baseUrlUsers, user);
   }
+
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrlUsers);
+  }
+
+  login(email: string, password: string): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrlUsers}?email=${email}&password=${password}`);
+  }
 }
