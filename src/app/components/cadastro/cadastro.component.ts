@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 
@@ -54,20 +54,48 @@ export class CadastroComponent implements OnInit {
     password.type = this.showConfirmPassword ? 'text' : 'password';
   }
 
+  // registerSubmit() {
+  //   if (this.registerFormGroup.valid) {
+  //     this.closeRegisterComponent();
+  //     this.authService.registerUser(this.registerFormGroup.value).subscribe(
+  //       response => {
+  //         console.log('Usuário cadastrado com sucesso:', response);
+  //       },
+  //       error => {
+  //         console.error('Erro ao cadastrar o usuário:', error);
+  //       }
+  //     );
+  //   } else {
+  //     console.log('Formulário inválido');
+  //   }
+  // }
+
   registerSubmit() {
-  if (this.registerFormGroup.valid) {
-    this.closeRegisterComponent();
-    this.authService.registerUser(this.registerFormGroup.value).subscribe(
-      response => {
-        console.log('Usuário cadastrado com sucesso:', response);
-      },
-      error => {
-        console.error('Erro ao cadastrar o usuário:', error);
+    if (this.registerFormGroup.valid) {
+      const password = this.registerFormGroup.get('password')?.value;
+      const confirmPassword = this.registerFormGroup.get('confirmPassword')?.value;
+      if (password !== confirmPassword) {
+        return;
       }
-    );
-  } else {
-    console.log('Formulário inválido');
+      const userData = {
+        name: this.registerFormGroup.get('name')?.value,
+        email: this.registerFormGroup.get('email')?.value,
+        password: password
+      };
+      this.authService.registerUser(userData).subscribe(
+        response => {
+          console.log('Usuário cadastrado com sucesso:', response);
+          this.closeRegisterComponent();
+        },
+        error => {
+          console.error('Erro ao cadastrar o usuário:', error);
+        }
+      );
+    } else {
+      console.log('Formulário inválido');
+    }
   }
-}
+  
+  
 
 }

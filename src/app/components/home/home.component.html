@@ -15,22 +15,21 @@
         <div class="line"></div>
         <div class="store-itens">
             <div class="store-itens-unit">
-                <img src="../../../assets/icons/1.svg" alt="">
+                <img class="icon" src="../../../assets/icons/1.svg" alt="">
                 <p class="poppins-light">Início</p>
             </div>
             <div class="store-itens-unit" (click)="shoppingCartOn()">
-                <img src="../../../assets/icons/2.svg" alt="">
+                <img class="icon" src="../../../assets/icons/2.svg" alt="">
                 <p class="poppins-light">Carrinho</p>
             </div>
             <div class="store-itens-unit" (click)="ordersOn()">
-                <img src="../../../assets/icons/3.svg" alt="">
+                <img class="icon" src="../../../assets/icons/3.svg" alt="">
                 <p class="poppins-light">Pedidos</p>
             </div>
             <div *ngIf="logged" class="store-itens-unit" (click)="profileOn = true">
-                <img src="../../../assets/icons/3.svg" alt="">
+                <img src="../../../assets/icons/4.svg" alt="">
                 <p class="poppins-light">Perfil</p>
             </div>
-            
         </div>
     </div>
 </div>
@@ -43,6 +42,12 @@
     </div>
     <div class="line-row"></div>
 </div>
+
+<p-toast></p-toast>
+
+<button (click)="showSuccess()">Mostrar Sucesso</button>
+<button (click)="showError()">Mostrar Erro</button>
+
 
 <div *ngIf="loginOn" class="overlay">
     <div class="login">

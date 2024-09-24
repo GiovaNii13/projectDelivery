@@ -104,6 +104,19 @@
         img {
             width: 40px;
             transition: filter 0.3s;
+            filter: none;
+            transition: fill 0.3s, stroke 0.3s;
+            fill: none;
+            stroke: black;
+        }
+
+        .icon {
+            width: 40px;
+            transition: filter 0.3s;
+            filter: none;
+            transition: fill 0.3s, stroke 0.3s;
+            fill: none;
+            stroke: black;
         }
 
         p {
@@ -112,9 +125,10 @@
         }
 
         &:hover {
-            img {
+            .icon {
                 filter: brightness(0) saturate(100%) invert(45%) sepia(36%) saturate(1500%) hue-rotate(90deg) brightness(95%) contrast(90%); 
                 cursor: pointer;
+                stroke: #8cc63f;
             }
 
             p {

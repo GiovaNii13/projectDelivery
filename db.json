@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": "44bb",
+      "name": "Giovani Alves Nunes",
+      "email": "gi_8nunes@hotmail.com",
+      "password": "teste123"
+    },
+    {
+      "id": "a6db",
+      "name": "Giovani Alves Nunes",
+      "email": "giovani.a.n13@hotmail.com",
+      "password": "Teste123"
+    }
+  ]
+}
