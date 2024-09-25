@@ -23,4 +23,8 @@ export class AuthService {
   login(email: string, password: string): Observable<any> {
     return this.http.get<any[]>(`${this.baseUrlUsers}?email=${email}&password=${password}`);
   }
+
+  updateUser(user: any) {
+    return this.http.put<any>(this.baseUrlUsers, user);
+  }
 }

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-my-profile',
   standalone: true,
-  imports: [CadastroComponent, ReactiveFormsModule],
+  imports: [CadastroComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss'
 })
@@ -17,6 +18,7 @@ export class MyProfileComponent implements OnInit {
   password: string | undefined;
   updateFormGroup!: FormGroup;
   fieldDisabled: boolean = true;
+  editOn: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -48,6 +50,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   enableForm() {
+    this.editOn = true;
     this.updateFormGroup.get('name')?.enable();
     this.updateFormGroup.get('email')?.enable();
     this.updateFormGroup.get('password')?.enable();
@@ -59,6 +62,14 @@ export class MyProfileComponent implements OnInit {
     this.updateFormGroup.get('email')?.disable();
     this.updateFormGroup.get('password')?.disable();
     this.updateFormGroup.get('confirmPassword')?.disable();
+  }
+
+  editOff() {
+    this.editOn = false;
+  }
+
+  updateUser() {
+    
   }
 
   ngOnInit(): void {

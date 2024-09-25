@@ -3,10 +3,14 @@
     width: 100%;
     height: 100%;
   }
+
+  .user-update {
+    min-height: 60vh;
+  }
   
   .side-bar {
     width: 20vw;
-    min-height: 55vh;
+    min-height: 65vh;
     display: flex;
     flex-direction: column;
   
@@ -31,7 +35,7 @@
   
   .content {
     width: 80vw;
-    min-height: 55vh;
+    min-height: 65vh;
 
     .header {
         display: flex;
@@ -57,3 +61,15 @@
 .col-8 {
     width: 90% !important;
 }   
+
+.container-btns {
+  margin: 20px !important;
+  justify-content: flex-start;
+}
+
+.btns-edit-on {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 10px;
+  margin-right: 40px;
+}
