@@ -54,22 +54,6 @@ export class CadastroComponent implements OnInit {
     password.type = this.showConfirmPassword ? 'text' : 'password';
   }
 
-  // registerSubmit() {
-  //   if (this.registerFormGroup.valid) {
-  //     this.closeRegisterComponent();
-  //     this.authService.registerUser(this.registerFormGroup.value).subscribe(
-  //       response => {
-  //         console.log('Usuário cadastrado com sucesso:', response);
-  //       },
-  //       error => {
-  //         console.error('Erro ao cadastrar o usuário:', error);
-  //       }
-  //     );
-  //   } else {
-  //     console.log('Formulário inválido');
-  //   }
-  // }
-
   registerSubmit() {
     if (this.registerFormGroup.valid) {
       const password = this.registerFormGroup.get('password')?.value;

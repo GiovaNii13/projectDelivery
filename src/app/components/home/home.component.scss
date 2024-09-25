@@ -207,32 +207,12 @@
     z-index: 1000;
 }
 
-@media (max-width: 768px) {
-    .header {
-        height: 30vh;
-        border-bottom-left-radius: 15%;
-        border-bottom-right-radius: 15%;
-    }
-
-    .container-infos {
-        width: 90%;
-        padding: 1.5rem;
-    }
-
-    .infos {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    img {
-        width: 50%;
-    }
-
-    .options {
-        margin: 0;
-        column-gap: 1rem;
+@media (max-width: 1400px) {
+    .login {
+        width: 45vw !important;
     }
 }
+
 
 .register {
     width: 40vw;
