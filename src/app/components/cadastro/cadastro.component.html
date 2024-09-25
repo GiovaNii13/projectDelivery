@@ -10,17 +10,17 @@
   <div class="col-8 d-flex flex-column align-center justify-center">
     <div class="col-8" style="margin-top: 0;">
       <label for="name" class="poppins-regular label">Nome *</label>
-      <input type="text" class="form-control" formControlName="name"
+      <input type="text" class="form-control" formControlName="name" [ngClass]="aplicaCssErro('name')"
        id="name" placeholder="Nome completo">
     </div>
     <div class="col-8">
       <label for="email" class="poppins-regular label">Email *</label>
-      <input type="email" class="form-control" formControlName="email"
+      <input type="email" class="form-control" formControlName="email" [ngClass]="aplicaCssErro('email')"
        id="email" placeholder="exemplo@gmail.com">
     </div>
     <div class="col-8" style="position: relative;">
       <label for="password" class="poppins-regular label">Senha *</label>
-      <input type="password" class="form-control" formControlName="password"
+      <input type="password" class="form-control" formControlName="password" [ngClass]="aplicaCssErro('password')"
        id="password" placeholder="Senha">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16" id="togglePassword" *ngIf="!showPassword" (click)="showPasswordOn()"
       style="position: absolute; top: 80%; right: 10px; transform: translateY(-50%); cursor: pointer;">
@@ -37,8 +37,8 @@
     </div>
     <div class="col-8" style="position: relative;">
       <label for="confirmPassword" class="poppins-regular label">Confirmar Senha *</label>
-      <input type="password" class="form-control" formControlName="confirmPassword"
-       id="confirmPassword" placeholder="Senha">
+      <input type="password" class="form-control" formControlName="confirmPassword" [ngClass]="aplicaCssErro('confirmPassword')"
+       id="confirmPassword" placeholder="Senha" (focus)="onFocusConfirmPassword()">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"    viewBox="0 0 16 16" id="toggleConfirmPassword" *ngIf="!showConfirmPassword"
         (click)="showPasswordConfirmOn()"
         style="position: absolute; top: 80%; right: 10px; transform: translateY(-50%); cursor: pointer;">
@@ -52,7 +52,13 @@
         <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
         <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
       </svg>
+      <div class="alert alert-danger was-validated" *ngIf="registerFormGroup.errors?.['notSame'] && registerFormGroup.get('confirmPassword')?.touched">
+        As senhas devem ser iguais!
+      </div>
     </div>
+  </div>
+  <div class="alert alert-danger was-validated" *ngIf="invalidFields">
+    Preencha todos os campos corretamente!
   </div>
   <div class="label">
     <button type="submit" class="btn btn-success"

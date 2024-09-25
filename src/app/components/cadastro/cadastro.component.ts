@@ -16,6 +16,8 @@ export class CadastroComponent implements OnInit {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
   disabledBtn: boolean = false;
+  invalidFields: boolean = false;
+  diferentsPasswords: boolean = false;
   @Output() close = new EventEmitter<void>();
 
   closeRegisterComponent() {
@@ -34,7 +36,7 @@ export class CadastroComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       confirmPassword: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-    })
+    }, { validator: this.checkPasswords });
   }
 
   ngOnInit(): void {
@@ -76,10 +78,28 @@ export class CadastroComponent implements OnInit {
         }
       );
     } else {
-      console.log('Formulário inválido');
+      this.invalidFields = true;
     }
   }
-  
-  
+
+  aplicaCssErro(campo: string) {
+    return {
+      'is-invalid': this.verificaValidTouchedLogin(campo)
+    }
+  }
+
+  verificaValidTouchedLogin(campo: string) {
+    return this.registerFormGroup.get(campo)?.invalid && (this.registerFormGroup.get(campo)?.touched);
+  }
+
+  checkPasswords(group: FormGroup) {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { notSame: true };
+  }
+
+  onFocusConfirmPassword() {
+    this.registerFormGroup.get('confirmPassword')?.setErrors(null);
+  }
 
 }

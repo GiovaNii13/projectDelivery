@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -12,6 +12,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './my-profile.component.scss'
 })
 export class MyProfileComponent implements OnInit {
+
+  @Output() close = new EventEmitter<void>();
+  @Output() logout = new EventEmitter<void>();
+
   email: string | undefined;
   id: string | undefined;
   name: string | undefined;
@@ -19,6 +23,10 @@ export class MyProfileComponent implements OnInit {
   updateFormGroup!: FormGroup;
   fieldDisabled: boolean = true;
   editOn: boolean = false;
+  deleteOn: boolean = false;
+  showPassword = false;
+  showConfirmPassword = false;
+  logouting = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,6 +34,14 @@ export class MyProfileComponent implements OnInit {
   ) {
   }
 
+  closeProfileComponent() {
+    this.close.emit();
+  }
+
+  logoutUser() {
+    this.logout.emit();
+  }
+  
   builderUpdateFormGroup() {
     this.updateFormGroup = this.fb.group({
       name: [this.name, [Validators.required, Validators.minLength(3), Validators.maxLength(300)]],
@@ -34,18 +50,16 @@ export class MyProfileComponent implements OnInit {
       confirmPassword: [this.password, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
     })
   }
-  
 
   getUser() {
     const usuarioSalvo = localStorage.getItem('loggedUser');
     if (usuarioSalvo) {
       const usuario = JSON.parse(usuarioSalvo);
       console.log(usuario); 
+      this.id = usuario.id;
       this.email = usuario.email;
       this.name = usuario.name;
       this.password = usuario.password;
-    } else {
-      console.log('Nenhum usuário cadastrado.');
     }
   }
 
@@ -58,19 +72,61 @@ export class MyProfileComponent implements OnInit {
   }
 
   disableForm() {
+    this.editOn = false;
     this.updateFormGroup.get('name')?.disable();
     this.updateFormGroup.get('email')?.disable();
     this.updateFormGroup.get('password')?.disable();
     this.updateFormGroup.get('confirmPassword')?.disable();
   }
 
-  editOff() {
-    this.editOn = false;
+  updateUser() {
+    if(this.updateFormGroup.valid) {
+      const password = this.updateFormGroup.get('password')?.value;
+      const confirmPassword = this.updateFormGroup.get('confirmPassword')?.value;
+      if (password == confirmPassword) {
+        const userData = {
+          id: this.id,
+          name: this.updateFormGroup.get('name')?.value,
+          email: this.updateFormGroup.get('email')?.value,
+          password: password
+        };
+        this.authService.updateUser(userData).subscribe(() => {
+          localStorage.removeItem('loggedUser');
+          localStorage.setItem('loggedUser', JSON.stringify(userData));
+        }
+        )
+        this.closeProfileComponent()
+      } else {
+        console.log('As senhas estão diferentes');
+      }
+    } else {
+      console.log('Formulário inválido');
+    }
   }
 
-  updateUser() {
-    
+  deleteUser() {
+    this.authService.deleteUser().subscribe(() => {
+      localStorage.removeItem('loggedUser');
+    })
+    this.deleteOn = false;
   }
+
+  cancelDelete() {
+    this.deleteOn = false;
+  }
+
+  delete() {
+    this.deleteOn = true;
+  }
+
+
+togglePasswordVisibility() {
+  this.showPassword = !this.showPassword;
+}
+
+toggleConfirmPasswordVisibility() {
+  this.showConfirmPassword = !this.showConfirmPassword;
+}
 
   ngOnInit(): void {
     this.getUser();

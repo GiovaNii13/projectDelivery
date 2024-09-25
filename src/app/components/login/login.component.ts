@@ -15,6 +15,7 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
 
   @Output() close = new EventEmitter<void>();
+  @Output() logged = new EventEmitter<boolean>();
 
   closeLoginComponent() {
     this.close.emit();
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
   password = ''
   showPassword: boolean = false;
   registerOn: boolean = false;
-  @Output() logged = new EventEmitter<boolean>();
+  usuarioInvalido: boolean = false;
+  loginInvalido: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -52,21 +54,26 @@ export class LoginComponent implements OnInit {
   login() {
     const email = this.loginFormGroup.get('email')?.value;
     const password = this.loginFormGroup.get('password')?.value;
-    this.authService.login(email, password).subscribe(users => {
+    this.authService.checkLogin(email, password).subscribe(users => {
       if (users.length > 0) {
         const user = users[0];
         console.log('Login bem-sucedido:', user);
         localStorage.setItem('loggedUser', JSON.stringify(user));
         this.logged.emit(true);
       } else {
-        console.log('Falha no login: Email ou senha inválidos!');
-        alert('Email ou senha inválidos!');
+        this.usuarioInvalido = true;
       }
     });
   }
-  
-  teste() {
-    console.log(this.loginFormGroup.value);
+
+  verificaValidTouchedLogin(campo: string) {
+    return this.loginFormGroup.get(campo)?.invalid && (this.loginFormGroup.get(campo)?.touched);
+  }
+
+  aplicaCssErro(campo: string) {
+    return {
+      'is-invalid': this.verificaValidTouchedLogin(campo)
+    }
   }
 
   closeRegisterComponent() {

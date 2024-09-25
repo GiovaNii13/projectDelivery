@@ -200,19 +200,12 @@
 
 .login {
     width: 30vw;
-    min-height: 50vh;
+    height: auto;
     background-color: white;
     border: solid 1px #512036;
     border-radius: 10px;
     z-index: 1000;
 }
-
-@media (max-width: 1400px) {
-    .login {
-        width: 45vw !important;
-    }
-}
-
 
 .register {
     width: 40vw;
@@ -225,9 +218,19 @@
 
 .my-profile {
     width: 40vw;
-    min-height: 65vh;
+    height: auto;
     background-color: white;
     border: solid 1px #512036;
     border-radius: 10px;
     z-index: 1000;
+}
+
+@media (max-width: 1400px) {
+    .login {
+        width: 45vw !important;
+    }
+
+    .my-profile {
+        width: 60vw;
+    }
 }

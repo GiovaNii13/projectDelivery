@@ -37,6 +37,10 @@ export class HomeComponent implements OnInit {
     this.loginOn = false;
   }
 
+  closeProfileComponent() {
+    this.profileOn = false;
+  }
+
   userOn() {
     if(this.logged) {
       console.log('Está logado')
@@ -70,6 +74,7 @@ export class HomeComponent implements OnInit {
   logout() {
     localStorage.removeItem('loggedUser');
     this.logged = false;
+    this.profileOn = false;
   }
 
 

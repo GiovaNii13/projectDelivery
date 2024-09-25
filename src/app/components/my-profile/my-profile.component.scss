@@ -1,52 +1,85 @@
 :host {
-    display: flex;
     width: 100%;
     height: 100%;
   }
 
-  .user-update {
-    min-height: 60vh;
+  .header {
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: space-between;
+    margin: 25px 25px;
+
+    svg {
+      cursor: pointer;
+      transition: color 0.3s ease;
+      
+      &:hover {
+          color: red;
+      }
   }
+  }
+
+.header-line {
+    border-top: 1px solid rgb(216, 216, 216);
+}
+
+  .body {
+    display: flex;
+  }
+
   
   .side-bar {
     width: 20vw;
-    min-height: 65vh;
     display: flex;
     flex-direction: column;
+    background-color: rgb(250, 250, 250);
   
     ul {
       margin: 0;
       padding: 0;
       width: 100%;
-      height: 100%;
-      background-color: rgb(238, 238, 238);
     }
   
     li {
       list-style: none;
-      height: 80px;
+      height: 70px;
       text-align: center;
       padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+
+      button {
+        background-color: transparent;
+        width: 100%;
+        height: 100%;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .delete-btn {
+        color: red;
+        &:hover {
+          background-color: red;
+          color: white;
+        }
+      }
+      .btn-active {
+        color: #512036;
+      }
+
+      .logout-btn {
+        &:hover {
+          color: red;
+        }
+      }
     }
   }
   
   .content {
     width: 80vw;
-    min-height: 65vh;
-
-    .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin: 25px 45px;
-    }
-
-    .header-line {
-        border-top: 1px solid rgb(216, 216, 216);
-    }
 }
 
 .label {
@@ -72,4 +105,35 @@
   justify-content: flex-end;
   column-gap: 10px;
   margin-right: 40px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.delete {
+  width: 20vw;
+  min-height: 20vh;
+  background-color: white;
+  border: solid 1px #512036;
+  border-radius: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .delete-btns {
+    display: flex;
+    column-gap: 15px;
+  }
 }
