@@ -1,0 +1,37 @@
+<form novalidate class="d-flex align-center justify-center flex-column" [formGroup]="adressFormGroup">
+    <div class="col-8">
+        <label for="cep" class="poppins-regular label">CEP</label>
+        <input type="number" class="form-control" formControlName="cep" (blur)="consultaCEP()" id="cep" placeholder="Informe seu CEP">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
+            <label class="form-check-label" for="flexCheckIndeterminate">
+                Não sei meu CEP
+            </label>
+        </div>
+    </div>
+
+    <div class="col-8">
+        <label for="street" class="poppins-regular label">Rua *</label>
+        <input type="text" class="form-control" formControlName="street" [disabled]="cepOff"
+            id="street" placeholder="">
+    </div>
+
+    <div class="col-8">
+        <label for="number" class="poppins-regular label">Número *</label>
+        <input type="number" class="form-control" formControlName="number" [disabled]="cepOff"
+            id="number" placeholder="N°">
+    </div>
+
+    <div class="col-8">
+        <label for="neighborhood" class="poppins-regular label">Bairro *</label>
+        <input type="text" class="form-control" formControlName="neighborhood" [disabled]="cepOff"
+            id="neighborhood" placeholder="Bairro">
+    </div>
+
+    <div class="col-8">
+        <label for="city" class="poppins-regular label">Cidade *</label>
+        <input type="text" class="form-control" formControlName="city" [disabled]="cepOff"
+            id="city" placeholder="Cidade">
+    </div>
+    <button class="btn btn-success col-8">Salvar</button>
+</form>

@@ -137,3 +137,16 @@
     column-gap: 15px;
   }
 }
+
+.content-no-adress {
+  height: 100%;
+}
+
+.registerAdress {
+  width: 50vw;
+  height: auto;
+  background-color: white;
+  border: solid 1px #512036;
+  border-radius: 10px;
+  z-index: 1000;
+}

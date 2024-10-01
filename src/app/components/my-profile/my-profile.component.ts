@@ -3,11 +3,12 @@ import { CadastroComponent } from '../cadastro/cadastro.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { AdressComponent } from '../adress/adress.component';
 
 @Component({
   selector: 'app-my-profile',
   standalone: true,
-  imports: [CadastroComponent, ReactiveFormsModule, CommonModule],
+  imports: [CadastroComponent, ReactiveFormsModule, CommonModule, AdressComponent],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss'
 })
@@ -27,6 +28,10 @@ export class MyProfileComponent implements OnInit {
   showPassword = false;
   showConfirmPassword = false;
   logouting = false;
+  profileOn: boolean = true;
+  adressOn: boolean = false;
+  adress: any[] = [];
+  registerAdress: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -120,13 +125,23 @@ export class MyProfileComponent implements OnInit {
   }
 
 
-togglePasswordVisibility() {
-  this.showPassword = !this.showPassword;
-}
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
-toggleConfirmPasswordVisibility() {
-  this.showConfirmPassword = !this.showConfirmPassword;
-}
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  toggleAdressOrProfile() {
+    if (this.profileOn) {
+      this.adressOn = true;
+      this.profileOn = false;
+    } else {
+      this.adressOn = false;
+      this.profileOn = true;
+    }
+  }
 
   ngOnInit(): void {
     this.getUser();

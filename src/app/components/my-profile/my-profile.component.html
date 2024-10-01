@@ -1,5 +1,6 @@
 <div class="header">
-  <h4 style="color: #00bf63;">Meu Perfil</h4>
+  <h4 style="color: #00bf63;" *ngIf="profileOn">Meu Perfil</h4>
+  <h4 style="color: #00bf63;" *ngIf="adressOn">Meus endereços</h4>
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16" (click)="closeProfileComponent()">
       <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
       <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
@@ -9,14 +10,13 @@
 <div class="body">
   <div class="side-bar">
       <ul>
-        <li><button class="btn-active poppins-regular">Meus dados</button></li>
-        <li><button class="poppins-regular">Endereços</button></li>
+        <li><button class="btn-active poppins-regular" (click)="toggleAdressOrProfile()">Meus dados</button></li>
+        <li><button class="poppins-regular" (click)="toggleAdressOrProfile()">Endereços</button></li>
         <li><button class="poppins-regular logout-btn" (click)="logoutUser()">Sair da conta</button></li>
         <li><button class="delete-btn poppins-regular" (click)="delete()">Deletar conta</button></li>
       </ul>
   </div>
-  <div class="content">
-  
+  <div class="content" *ngIf="profileOn">
       <div class="user-update col-12">
           <form novalidate [formGroup]="updateFormGroup">
               <div class="col-8 d-flex flex-column align-center justify-center">
@@ -92,5 +92,17 @@
 
           </form>
       </div>
+  </div>
+  <div *ngIf="adressOn" class="content">
+    <div *ngIf="!adress?.length" class="d-flex align-center justify-center content-no-adress flex-column">
+      <p>Você ainda não tem endereços cadastrados</p>
+      <button class="btn btn-success" (click)="registerAdress = true">Cadastrar</button>
+    </div>
+    <div *ngIf="adress?.length">
+      <h1>testeee</h1>
+    </div>
+    <div *ngIf="registerAdress" class="overlay">
+      <app-adress class="registerAdress"></app-adress>
+    </div>
   </div>
 </div>

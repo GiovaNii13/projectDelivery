@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +34,16 @@ export class AuthService {
     const loggedUser = localStorage.getItem('loggedUser');
     const id = loggedUser ? JSON.parse(loggedUser).id : null;
     return this.http.delete<any>(`${this.baseUrlUsers}/${id}`);
+  }
+
+  consultaCep(cep: string) {
+    cep = cep.replace(/\D/g, '');
+    if (cep !== '') {
+      const validacep = /^[0-9]{8}$/;
+      if (validacep.test(cep)){
+        return this.http.get(`//viacep.com.br/ws/${cep}/json/`);
+      }
+    }
+    return of({})
   }
 }
