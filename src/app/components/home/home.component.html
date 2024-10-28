@@ -1,36 +1,38 @@
 <div class="header">
     <button *ngIf="!logged" class="btn-login poppins-light" type="button" (click)="loginOn = true;">Entrar</button>
 </div>
-<div class="container-infos">
-    <div class="infos">
-        <div class="d-flex align-center infos-title">
-            <img src="../../../assets/imgs/darkIcon.png" alt="">
-            <div class="title-container">
-                <h4 class="poppins-bold">Ponto do açai</h4>
-                <h6 class="poppins-regular">Açaiteria</h6>
-                <div class="d-flex infos-green-button">
-                    <!-- <button></button> -->
-                    <p class="poppins-extralight"> Aberto até às 22:00</p>
+<div class="container">
+    <div class="container-infos">
+        <div class="infos">
+            <div class="d-flex align-center infos-title">
+                <img src="../../../assets/imgs/darkIcon.png" alt="">
+                <div class="title-container">
+                    <h4 class="poppins-bold">Ponto do açai</h4>
+                    <h6 class="poppins-regular">Açaiteria</h6>
+                    <div class="d-flex infos-green-button">
+                        <!-- <button></button> -->
+                        <p class="poppins-extralight"> Aberto até às 22:00</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="line"></div>
-        <div class="store-itens">
-            <div class="store-itens-unit">
-                <img class="icon" src="../../../assets/icons/1.svg" alt="">
-                <p class="poppins-light">Início</p>
-            </div>
-            <div class="store-itens-unit" (click)="shoppingCartOn()">
-                <img class="icon" src="../../../assets/icons/2.svg" alt="">
-                <p class="poppins-light">Carrinho</p>
-            </div>
-            <div class="store-itens-unit" (click)="ordersOn()">
-                <img class="icon" src="../../../assets/icons/3.svg" alt="">
-                <p class="poppins-light">Pedidos</p>
-            </div>
-            <div *ngIf="logged" class="store-itens-unit" (click)="profileOn = true">
-                <img src="../../../assets/icons/4.svg" alt="">
-                <p class="poppins-light">Perfil</p>
+            <div class="line"></div>
+            <div class="store-itens">
+                <div class="store-itens-unit">
+                    <img class="icon" src="../../../assets/icons/1.svg" alt="">
+                    <p class="poppins-light">Início</p>
+                </div>
+                <div class="store-itens-unit" (click)="shoppingCartOn()">
+                    <img class="icon" src="../../../assets/icons/2.svg" alt="">
+                    <p class="poppins-light">Carrinho</p>
+                </div>
+                <div class="store-itens-unit" (click)="ordersOn()">
+                    <img class="icon" src="../../../assets/icons/3.svg" alt="">
+                    <p class="poppins-light">Pedidos</p>
+                </div>
+                <div *ngIf="logged" class="store-itens-unit" (click)="profileOn = true">
+                    <img src="../../../assets/icons/4.svg" alt="">
+                    <p class="poppins-light">Perfil</p>
+                </div>
             </div>
         </div>
     </div>
@@ -39,10 +41,42 @@
 <div class="home-options">
     <div class="line-row"></div>
     <div class="options">
-        <p>Monte o seu</p>
-        <p>Açai</p>
+        <p [class]="mountYours? 'enable-btn': 'disable-btn'" (click)="showMountYoursContent()">Monte o seu</p>
+        <p [class]="acaiReady? 'enable-btn': 'disable-btn'" (click)="showAcaiReadyContent()">Açai</p>
     </div>
     <div class="line-row"></div>
+</div>
+
+<div class="acai-content">
+    <div *ngIf="mountYours" class="build-content">
+        <div class="acai-build-card" *ngFor="let sizeProduct of sizesProducts; let i = index;" (click)="openExtras(sizeProduct)">
+            <div class="card-content">
+                <h4>{{ sizeProduct.title }}</h4>
+                <p>{{ sizeProduct.description }}</p>
+                <span class="price">{{ sizeProduct.price | currency:'BRL':'symbol':'1.2-2' }}</span>
+            </div>
+            <div class="card-image">
+                <img src="{{ sizeProduct.image }}" alt="Açaí na tigela">
+            </div>
+        </div>
+        <div class="list-extras" *ngIf="selectedProduct && extrasOn">
+            <app-extras [image]="selectedProduct.image" [productTitle]="selectedProduct.title" (close)="closeExtrasComponent()"></app-extras>
+        </div>
+    </div>
+    
+    
+    <div *ngIf="acaiReady" class="ready-content">
+        <div class="acai-build-card" *ngFor="let product of readyProducts;let i = index;">
+            <div class="card-content">
+                <h4>{{ product.title }}</h4>
+                <p>{{ product.description }}</p>
+                <span class="price">{{ product.price | currency:'BRL':'symbol':'1.2-2' }}</span>
+            </div>
+            <div class="card-image">
+                <img src="{{ product.image }}">
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- <p-toast></p-toast>

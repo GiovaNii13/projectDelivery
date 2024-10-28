@@ -33,11 +33,6 @@ export class LoginComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {
-    this.loginFormBuilder();
-  }
-
-
   showPasswordOn() {
     this.showPassword = !this.showPassword;
     const password = document.getElementById('password') as HTMLInputElement;
@@ -78,5 +73,9 @@ export class LoginComponent implements OnInit {
 
   closeRegisterComponent() {
     this.registerOn = false;
+  }
+
+  ngOnInit(): void {
+    this.loginFormBuilder();
   }
 }

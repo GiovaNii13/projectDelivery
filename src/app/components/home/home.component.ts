@@ -5,11 +5,13 @@ import { CadastroComponent } from '../cadastro/cadastro.component';
 import { MyProfileComponent } from '../my-profile/my-profile.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { AuthService } from '../../services/auth.service';
+import { ExtrasComponent } from '../extras/extras.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [LoginComponent, CommonModule, CadastroComponent, MyProfileComponent, ToastModule],
+  imports: [LoginComponent, CommonModule, CadastroComponent, MyProfileComponent, ToastModule, ExtrasComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   providers: [MessageService]
@@ -19,10 +21,17 @@ export class HomeComponent implements OnInit {
   loginOn: boolean = false;
   logged: boolean = false;
   makeRegister: boolean = false;
+  extrasOn: boolean = false;
   profileOn: boolean = false;
+  mountYours: boolean = true;
+  acaiReady: boolean = false;
+  readyProducts: any[] = [];
+  sizesProducts: any[] = [];
+  selectedProduct: any = null;
 
   constructor(
-    private messageService: MessageService
+    private messageService: MessageService,
+    private authService: AuthService
   ) {
   }
 
@@ -77,11 +86,47 @@ export class HomeComponent implements OnInit {
     this.profileOn = false;
   }
 
+  showMountYoursContent() {
+    this.acaiReady = false;
+    this.mountYours = true;
+  }
+
+  showAcaiReadyContent() {
+    this.mountYours = false;
+    this.acaiReady = true;
+  }
+
+  getProducts() {
+    this.authService.getProducts().subscribe(products => {
+      this.readyProducts = products
+      console.log('getProducts acionado')
+      console.log(this.readyProducts)
+    })
+  }
+
+  getSizesProducts() {
+    this.authService.getSimpleProducts().subscribe(products => {
+      this.sizesProducts = products
+      console.log('getProducts acionado')
+      console.log(this.readyProducts)
+    })
+  }
+
+  openExtras(sizeProduct: any) {
+    this.selectedProduct = sizeProduct;
+    this.extrasOn = true;
+}
+
+  closeExtrasComponent() {
+    this.extrasOn = false;
+  }
 
   ngOnInit(): void {
     const user = localStorage.getItem('loggedUser');
     if (user) {
       this.logged = true; 
     }
+    this.getProducts();
+    this.getSizesProducts();
   }
 }

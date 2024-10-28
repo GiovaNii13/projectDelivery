@@ -1,108 +1,209 @@
-<div class="header">
-  <h4 style="color: #00bf63;" *ngIf="profileOn">Meu Perfil</h4>
-  <h4 style="color: #00bf63;" *ngIf="adressOn">Meus endereços</h4>
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16" (click)="closeProfileComponent()">
-      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-  </svg>
-</div>
-<div class="header-line"></div>
-<div class="body">
-  <div class="side-bar">
-      <ul>
-        <li><button class="btn-active poppins-regular" (click)="toggleAdressOrProfile()">Meus dados</button></li>
-        <li><button class="poppins-regular" (click)="toggleAdressOrProfile()">Endereços</button></li>
-        <li><button class="poppins-regular logout-btn" (click)="logoutUser()">Sair da conta</button></li>
-        <li><button class="delete-btn poppins-regular" (click)="delete()">Deletar conta</button></li>
-      </ul>
+  <div class="header">
+    <h4 class="poppins-bold" *ngIf="profileOn">Meu Perfil</h4>
+    <h4 class="poppins-bold" *ngIf="adressOn">Meus endereços</h4>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16" (click)="closeProfileComponent()">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+    </svg>
   </div>
-  <div class="content" *ngIf="profileOn">
-      <div class="user-update col-12">
-          <form novalidate [formGroup]="updateFormGroup">
-              <div class="col-8 d-flex flex-column align-center justify-center">
-                <div class="col-8" style="margin-top: 0;">
-                  <label for="name" class="poppins-regular label">Nome *</label>
-                  <input [disabled]="fieldDisabled" type="text" class="form-control" formControlName="name"
-                   id="name" placeholder="Nome completo">
-                </div>
-                <div class="col-8">
-                  <label for="email" class="poppins-regular label">Email *</label>
-                  <input [disabled]="fieldDisabled" type="email" class="form-control" formControlName="email"
-                   id="email" placeholder="exemplo@gmail.com">
-                </div>
-                <div class="col-8" style="position: relative;">
-                  <label for="password" class="poppins-regular label">Senha *</label>
-                  <input [disabled]="fieldDisabled" type="password" class="form-control" formControlName="password"
-                   id="password" placeholder="Senha">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16" id="togglePassword"
-                  style="position: absolute; top: 80%; right: 10px; transform: translateY(-50%); cursor: pointer;">
-                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
-                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                  </svg>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16"
-                  style="position: absolute; top: 80%; right: 10px; transform: translateY(-50%); cursor: pointer;">
-                    <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
-                    <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
-                    <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
-                  </svg>
-                </div>
-                <div class="col-8" style="position: relative;">
-                  <label for="confirmPassword" class="poppins-regular label">Confirmar Senha *</label>
-                  <input [disabled]="fieldDisabled" type="password" class="form-control" formControlName="confirmPassword"
-                   id="confirmPassword" placeholder="Senha">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"    viewBox="0 0 16 16" id="toggleConfirmPassword"
+  <div class="header-line"></div>
+  <div class="body">
+    <div class="side-bar">
+        <ul>
+          <li><button class="poppins-regular" (click)="toggleProfile()" [ngClass]="{'btn-active': profileOn}">Meus dados</button></li>
+          <li><button class="poppins-regular" (click)="toggleAdress()" [ngClass]="{'btn-active': adressOn}">Endereços</button></li>
+          <li><button class="poppins-regular logout-btn" (click)="showLogoutModal()">Sair da conta</button></li>
+          <li><button class="delete-btn poppins-regular" (click)="delete()">Deletar conta</button></li>
+        </ul>
+    </div>
+    <div class="content" *ngIf="profileOn">
+        <div class="user-update col-12">
+            <form novalidate [formGroup]="updateFormGroup">
+                <div class="col-8 d-flex flex-column align-center justify-center">
+                  <div class="col-8" style="margin-top: 0;">
+                    <label for="name" class="poppins-regular label">Nome *</label>
+                    <input [disabled]="fieldDisabled" type="text" class="form-control" formControlName="name"
+                    id="name" placeholder="Nome completo">
+                  </div>
+                  <div class="col-8">
+                    <label for="email" class="poppins-regular label">Email *</label>
+                    <input [disabled]="fieldDisabled" type="email" class="form-control" formControlName="email"
+                    id="email" placeholder="exemplo@gmail.com">
+                  </div>
+                  <div class="col-8" style="position: relative;">
+                    <label for="password" class="poppins-regular label">Senha *</label>
+                    <input [disabled]="fieldDisabled" [type]="showPassword? 'text' : 'password'" 
+                    class="form-control" formControlName="password"
+                    id="password" placeholder="Senha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16" id="togglePassword" *ngIf="!showPassword && editOn" (click)="togglePasswordVisibility()"
                     style="position: absolute; top: 80%; right: 10px; transform: translateY(-50%); cursor: pointer;">
-                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
-                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                  </svg>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16"
-                  style="position: absolute; top: 80%; right: 10px; transform: translateY(-50%); cursor: pointer;">
-                    <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
-                    <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
-                    <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="container-btns">
-                <button *ngIf="!editOn" (click)="enableForm()" class="btn btn-secondary" type="button">Editar Perfil</button>
-                <div class="btns-edit-on" *ngIf="editOn">
-                  <button class="btn btn-danger" type="button" (click)="disableForm()">Cancelar</button>
-                  <button class="btn btn-success" type="submit" (click)="updateUser()">Salvar</button>
-                </div>
-              </div>
-              <div *ngIf="deleteOn" class="overlay">
-                <div class="delete">
-                  <p class="poppins-light">Você deseja mesmo deletar sua conta?</p>
-                  <div class="delete-btns">
-                    <button class="btn btn-secondary" (click)="cancelDelete()">Cancelar</button>
-                    <button class="btn btn-danger" (click)="deleteUser()">Deletar</button>
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16" *ngIf="showPassword && editOn" (click)="togglePasswordVisibility()"
+                    style="position: absolute; top: 80%; right: 10px; transform: translateY(-50%); cursor: pointer;">
+                      <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+                      <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+                      <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+                    </svg>
+                  </div>
+                  <div class="col-8" style="position: relative;">
+                    <label for="confirmPassword" class="poppins-regular label">Confirmar Senha *</label>
+                    <input [disabled]="fieldDisabled" [type]="showConfirmPassword? 'text' : 'password'" class="form-control" formControlName="confirmPassword"
+                    id="confirmPassword" placeholder="Senha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16" id="toggleConfirmPassword" *ngIf="!showConfirmPassword && editOn" (click)="toggleConfirmPasswordVisibility()"
+                      style="position: absolute; top: 80%; right: 10px; transform: translateY(-50%); cursor: pointer;">
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16" *ngIf="showConfirmPassword && editOn" (click)="toggleConfirmPasswordVisibility()"
+                    style="position: absolute; top: 80%; right: 10px; transform: translateY(-50%); cursor: pointer;">
+                      <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+                      <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+                      <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+                    </svg>
                   </div>
                 </div>
-              </div>
-
-              <div *ngIf="logouting" class="overlay">
-                <div class="logout">
-                  <p class="poppins-light">Você deseja mesmo deletar sua conta?</p>
-                  <div class="delete-btns">
-                    <button class="btn btn-secondary" (click)="cancelDelete()">Cancelar</button>
-                    <button class="btn btn-danger" (click)="deleteUser()">Deletar</button>
+                <div class="container-btns">
+                  <button *ngIf="!editOn" (click)="enableForm()" class="btn btn-primary" type="button">Editar Perfil</button>
+                  <div class="btns-edit-on" *ngIf="editOn">
+                    <button class="btn btn-danger" type="button" (click)="disableForm()">Cancelar</button>
+                    <button class="btn btn-success" type="submit" (click)="updateUser()">Salvar</button>
                   </div>
                 </div>
-              </div>
+                <div *ngIf="deleteOn" class="overlay">
+                  <div class="delete">
+                    <p class="poppins-light">Você deseja mesmo deletar sua conta?</p>
+                    <div class="delete-btns">
+                      <button class="btn btn-secondary" (click)="cancelDelete()">Cancelar</button>
+                      <button class="btn btn-danger" (click)="deleteUser()">Deletar</button>
+                    </div>
+                  </div>
+                </div>
 
-          </form>
+                <div *ngIf="logouting" class="overlay">
+                  <div class="delete">
+                    <p class="poppins-light">Você deseja mesmo sair da sua conta?</p>
+                    <div class="delete-btns">
+                      <button class="btn btn-secondary" (click)="cancelDelete()">Cancelar</button>
+                      <button class="btn btn-danger" (click)="logoutUser()">Sair</button>
+                    </div>
+                  </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div *ngIf="adressOn" class="content">
+      <div *ngIf="!addresses?.length" class="d-flex align-center justify-center content-no-adress flex-column">
+        <p>Você ainda não tem endereços cadastrados</p>
+        <button class="btn btn-success" (click)="registerAdress = true">Cadastrar</button>
       </div>
+    
+      <div *ngIf="addresses?.length && !adressEdit" class="address-list">
+        <div *ngFor="let adress of addresses" class="card">
+          <div class="card-content" (click)="selectAdress(adress)">
+            <div>
+              <h5>{{ adress.adressName }}</h5>
+            </div>
+            <p><b>Rua:</b> {{ adress.street }}</p>
+            <p><b>Número:</b> {{ adress.number }}</p>
+            <p><b>Bairro:</b> {{ adress.neighborhood }}</p>
+            <p><b>Cidade:</b> {{ adress.city }}</p>
+          </div>
+        </div>
+        <button class="btn btn-success add-address-btn" (click)="registerAdress = true">Cadastrar novo endereço</button>
+      </div>
+      
+      <div *ngIf="adressEdit">
+        <form
+          novalidate (ngSubmit)="editAddress()"
+          class="d-flex align-center justify-center flex-column user-update col-12" 
+          [formGroup]="adressFormGroup">
+          
+          <div class="col-8">
+            <label for="adressName" class="poppins-regular label">Nome do endereço *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="adressName" 
+              id="adressName" 
+              placeholder="Casa/Trabalho">
+          </div>
+          
+          <div class="col-8">
+            <label for="cep" class="poppins-regular label">CEP</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              formControlName="cep" 
+              id="cep" 
+              placeholder="Informe seu CEP">
+            <div class="form-check">
+              <input 
+                class="form-check-input" 
+                type="checkbox" 
+                id="flexCheckNoCep" 
+                (change)="toggleCepOff($event)">
+              <label class="form-check-label" for="flexCheckNoCep">
+                Não sei meu CEP
+              </label>
+            </div>
+          </div>
+          
+          <div class="col-8">
+            <label for="street" class="poppins-regular label">Rua *</label>
+            <input 
+              [disabled]="cepOff" 
+              type="text" 
+              class="form-control" 
+              formControlName="street" 
+              id="street" 
+              placeholder="Rua">
+          </div>
+          
+          <div class="col-8">
+            <label for="number" class="poppins-regular label">Número *</label>
+            <input 
+              type="number" 
+              class="form-control" 
+              formControlName="number" 
+              id="number" 
+              placeholder="N°">
+          </div>
+          
+          <div class="col-8">
+            <label for="neighborhood" class="poppins-regular label">Bairro *</label>
+            <input 
+              [disabled]="cepOff" 
+              type="text" 
+              class="form-control" 
+              formControlName="neighborhood" 
+              id="neighborhood" 
+              placeholder="Bairro">
+          </div>
+          
+          <div class="col-8">
+            <label for="city" class="poppins-regular label">Cidade *</label>
+            <input 
+              [disabled]="cepOff" 
+              type="text" 
+              class="form-control" 
+              formControlName="city" 
+              id="city" 
+              placeholder="Cidade">
+          </div>
+          
+          <div class="container-btns btns-edit-on">
+            <button class="btn btn-secondary" type="button" (click)="closeAdressComponent()">Cancelar</button>
+            <button class="btn btn-danger" type="button" (click)="deleteAddress(selectedAdress.id)">Excluir</button>
+            <button class="btn btn-success" type="submit">Salvar</button>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="registerAdress" class="overlay">
+        <app-adress class="registerAdress" (close)="closeAdressComponent()"></app-adress>
+      </div> 
+    
   </div>
-  <div *ngIf="adressOn" class="content">
-    <div *ngIf="!adress?.length" class="d-flex align-center justify-center content-no-adress flex-column">
-      <p>Você ainda não tem endereços cadastrados</p>
-      <button class="btn btn-success" (click)="registerAdress = true">Cadastrar</button>
-    </div>
-    <div *ngIf="adress?.length">
-      <h1>testeee</h1>
-    </div>
-    <div *ngIf="registerAdress" class="overlay">
-      <app-adress class="registerAdress"></app-adress>
-    </div>
-  </div>
-</div>

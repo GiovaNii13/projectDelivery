@@ -39,10 +39,6 @@ export class CadastroComponent implements OnInit {
     }, { validator: this.checkPasswords });
   }
 
-  ngOnInit(): void {
-      this.cadastroFormBuilder();
-  }
-
   showPasswordOn() {
     this.showPassword = !this.showPassword;
     const password = document.getElementById('password') as HTMLInputElement;
@@ -102,4 +98,7 @@ export class CadastroComponent implements OnInit {
     this.registerFormGroup.get('confirmPassword')?.setErrors(null);
   }
 
+  ngOnInit(): void {
+    this.cadastroFormBuilder();
+  }
 }

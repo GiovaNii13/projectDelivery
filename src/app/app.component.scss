@@ -1,0 +1,21 @@
+.my-profile {
+    width: 40vw;
+    height: auto;
+    background-color: white;
+    border: solid 1px #512036;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}

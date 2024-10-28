@@ -1,110 +1,58 @@
 :host {
-    width: 100%;
-    height: 100%;
-  }
-
-  .header {
-    display: flex;
-    width: 90%;
-    align-items: center;
-    justify-content: space-between;
-    margin: 25px 25px;
-
-    svg {
-      cursor: pointer;
-      transition: color 0.3s ease;
-      
-      &:hover {
-          color: red;
-      }
-  }
-  }
-
-.header-line {
-    border-top: 1px solid rgb(216, 216, 216);
+  width: 100%;
+  height: 100%;
 }
 
-  .body {
-    display: flex;
-  }
-
-  
-  .side-bar {
-    width: 20vw;
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(250, 250, 250);
-  
-    ul {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-    }
-  
-    li {
-      list-style: none;
-      height: 70px;
-      text-align: center;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      button {
-        background-color: transparent;
-        width: 100%;
-        height: 100%;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s, color 0.3s;
-      }
-
-      .delete-btn {
-        color: red;
-        &:hover {
-          background-color: red;
-          color: white;
-        }
-      }
-      .btn-active {
-        color: #512036;
-      }
-
-      .logout-btn {
-        &:hover {
-          color: red;
-        }
-      }
-    }
-  }
-  
-  .content {
-    width: 80vw;
+.content {
+  width: 80vw;
+  height: 50vh;
+  max-height: 500px;
+  overflow-y: auto;
 }
 
-.label {
-    font-size: 18px;
-    margin: 10px 0;
-}  
-
-.form-control {
-    border-color: rgb(197, 197, 197);
-}
-
-.col-8 {
-    width: 90% !important;
-}   
-
-.container-btns {
-  margin: 20px !important;
-  justify-content: flex-start;
-}
-
-.btns-edit-on {
+.address-list {
   display: flex;
-  justify-content: flex-end;
-  column-gap: 10px;
-  margin-right: 40px;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background-color: rgb(250, 250, 250);
+  border: 1px solid #512036;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  margin: 5px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: rgba(134, 134, 134, 0.185);
+  }
+  &-content {
+    
+    p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+  }
+}
+
+.add-address-btn {
+  margin: 10px 0 40px 0;
+  align-self: center;
+  padding: 10px 20px;
+  border: none;
+  background-color: #28a745;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #218838;
+  }
 }
 
 .overlay {
@@ -118,6 +66,126 @@
   align-items: center;
   justify-content: center;
   z-index: 999;
+}
+
+.registerAdress {
+  width: 50vw;
+  height: auto;
+  background-color: white;
+  border: solid 1px #512036;
+  border-radius: 10px;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  width: 90%;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px 25px;
+
+  svg {
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+.header-line {
+  border-top: 1px solid rgb(216, 216, 216);
+}
+
+.body {
+  display: flex;
+}
+
+.side-bar {
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(250, 250, 250);
+
+  ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  li {
+    list-style: none;
+    height: 70px;
+    text-align: center;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .delete-btn {
+      color: red;
+
+      &:hover {
+        background-color: red;
+        color: white;
+      }
+    }
+
+    .btn-active {
+      color: #512036;
+      font-weight: 700;
+    }
+
+    .logout-btn {
+      &:hover {
+        color: red;
+      }
+    }
+  }
+}
+
+.label {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.form-control {
+  border-color: rgb(197, 197, 197);
+}
+
+.col-8 {
+  width: 90% !important;
+}
+
+.container-btns {
+  margin: 20px !important;
+  justify-content: flex-start;
+}
+
+.btns-edit-on {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 10px;
+  margin-right: 40px;
+}
+
+.content-no-adress {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .delete {
@@ -136,17 +204,4 @@
     display: flex;
     column-gap: 15px;
   }
-}
-
-.content-no-adress {
-  height: 100%;
-}
-
-.registerAdress {
-  width: 50vw;
-  height: auto;
-  background-color: white;
-  border: solid 1px #512036;
-  border-radius: 10px;
-  z-index: 1000;
 }

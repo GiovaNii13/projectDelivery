@@ -4,7 +4,113 @@
       "id": "a6db",
       "name": "Giovani Alves Nunes",
       "email": "giovani.a.n13@hotmail.com",
-      "password": "Teste123"
+      "password": "Teste123",
+      "addresses": []
+    },
+    {
+      "id": "1101",
+      "name": "Fulano da silva",
+      "email": "fulano@gmail.com",
+      "password": "Teste123",
+      "addresses": [
+        {
+          "adressName": "Teste de edição",
+          "cep": "17404034",
+          "street": "Rua Capitão Isaias Rodrigues Martins",
+          "number": 12,
+          "neighborhood": "Jardim Brasil",
+          "city": "Garça",
+          "id": 1
+        },
+        {
+          "adressName": "Teste de edição",
+          "cep": "17404034",
+          "street": "Rua Capitão Isaias Rodrigues Martins",
+          "number": 12,
+          "neighborhood": "Jardim Brasil",
+          "city": "Garça",
+          "id": 1
+        },
+        {
+          "adressName": "Teste de edição",
+          "cep": "17404034",
+          "street": "Rua Capitão Isaias Rodrigues Martins",
+          "number": 12,
+          "neighborhood": "Jardim Brasil",
+          "city": "Garça",
+          "id": 1
+        },
+        {
+          "adressName": "Teste de edição",
+          "cep": "17404034",
+          "street": "Rua Capitão Isaias Rodrigues Martins",
+          "number": 12,
+          "neighborhood": "Jardim Brasil",
+          "city": "Garça",
+          "id": 1
+        }
+      ]
     }
-  ]
+  ],
+    "products": [
+      {
+        "id": 1,
+        "title": "AÇAÍ TRADICIONAL COM CANUDOS - 500ML",
+        "description": "Acompanha: Açaí, Banana, leite em pó, granola, Canudos de chocolate, leite condensado.",
+        "price": 21.00,
+        "image": "/assets/imgs/2.png"
+      },
+      {
+        "id": 2,
+        "title": "AÇAÍ ESPECIAL - 300ML",
+        "description": "Acompanha: Açaí, M&M, Chocoboll, KitKat, leite condessado e nutella.",
+        "price": 18.00,
+        "image": "/assets/imgs/1.png"
+      },
+      {
+        "id": 3,
+        "title": "AÇAÍ TRADICIONAL NA TIGELA - 300ML",
+        "description": "Açaí, granola, leite condensado, e banana.",
+        "price": 19.00,
+        "image": "/assets/imgs/4.png"
+      },
+      {
+        "id": 4,
+        "title": "AÇAÍ ESPECIAL CREME DE LEITE NINHO - 500ML",
+        "description": "Açaí, morango e creme de leite ninho.",
+        "price": 20.50,
+        "image": "/assets/imgs/3.png"
+      }
+    ],
+    "simpleProducts": [
+      {
+        "id": 1,
+        "title": "AÇAÍ - 300ML",
+        "description": "Copo de açaí de 300ml, com opção de adicionar até 3 complementos.",
+        "price": 14.00,
+        "image": "/assets/imgs/3.png"
+      },
+      {
+        "id": 2,
+        "title": "AÇAÍ - 500ML",
+        "description": "Copo de açaí de 500ml, com opção de adicionar até 3 complementos.",
+        "price": 18.00,
+        "image": "/assets/imgs/3.png"
+      },
+      {
+        "id": 3,
+        "title": "AÇAÍ - 700ML",
+        "description": "Copo de açaí de 700ml, com opção de adicionar até 3 complementos.",
+        "price": 22.00,
+        "image": "/assets/imgs/3.png"
+      },
+      {
+        "id": 4,
+        "title": "AÇAÍ - 1000ML",
+        "description": "Aaçaí de 1 litro, com opção de adicionar até 5 complementos.",
+        "price": 27.00,
+        "image": "/assets/imgs/3.png"
+      }
+    ]
+  
 }

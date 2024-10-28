@@ -5,3 +5,20 @@
 .btn {
     margin: 20px;
 }
+
+.header-adress {
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: space-between;
+    margin: 25px 25px;
+
+    svg {
+        cursor: pointer;
+        transition: color 0.3s ease;
+        
+        &:hover {
+            color: red;
+        }
+  }
+}
