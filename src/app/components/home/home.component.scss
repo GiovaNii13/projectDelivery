@@ -317,15 +317,25 @@
 }
 
 .list-extras {
-    position: fixed; /* Fixa a posição na tela */
-    top: 0; /* Começa no topo da página */
-    right: 0; /* Fixa no canto esquerdo */
-    width: 20vw; /* Define a largura da div */
-    height: 100vh; /* Estende a altura até o fim da página */
-    background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente para sobrepor o conteúdo */
-    color: white; /* Cor do texto para contraste */
-    z-index: 1000; /* Garante que fique acima de outros elementos */
-    overflow-y: auto; /* Permite rolagem se o conteúdo exceder a altura */
-    padding: 20px; /* Adiciona um espaço interno */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Sombra para destacar */
+    position: fixed;
+    background-color: white;
+    top: 0;
+    right: 0;
+    width: 20vw;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.overlay-extras {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
 }

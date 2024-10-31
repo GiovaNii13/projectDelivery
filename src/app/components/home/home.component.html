@@ -59,8 +59,10 @@
                 <img src="{{ sizeProduct.image }}" alt="Açaí na tigela">
             </div>
         </div>
-        <div class="list-extras" *ngIf="selectedProduct && extrasOn">
-            <app-extras [image]="selectedProduct.image" [productTitle]="selectedProduct.title" (close)="closeExtrasComponent()"></app-extras>
+        <div class="overlay-extras" *ngIf="selectedProduct && extrasOn">
+            <app-extras class="list-extras" [image]="selectedProduct.image" [productTitle]="selectedProduct.title"
+             (close)="closeExtrasComponent()" [productPrice]="selectedProduct.price">
+            </app-extras>
         </div>
     </div>
     

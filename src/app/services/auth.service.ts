@@ -9,6 +9,8 @@ export class AuthService {
   baseUrlUsers = 'http://localhost:3000/users';
   baseUrlProducts = 'http://localhost:3000/products';
   baseUrlSimpleProducts = 'http://localhost:3000/simpleProducts';
+  baseUrlFreeAdds = 'http://localhost:3000/freeAdds';
+  baseUrlSpecialAdds = 'http://localhost:3000/specialAdds';
   constructor(
     private http: HttpClient
   ) { }
@@ -102,5 +104,13 @@ export class AuthService {
 
   getSizeProducts(id: any): Observable<any> {
     return this.http.get(`${this.baseUrlSimpleProducts}/${id}`);
+  }
+
+  getFreeAdss(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrlFreeAdds);
+  }
+
+  getSpecialAdds(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrlSpecialAdds);
   }
 }
