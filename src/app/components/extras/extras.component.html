@@ -5,45 +5,82 @@
         <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
     </svg>
 </div>
-<div class="infos-product">
-    <img [src]="image" alt="" width="150">
-    <h5>{{ productTitle }}</h5>
-    <p class="price poppins-regular">{{ productPrice | currency:'BRL':'symbol':'1.2-2' }}</p>
-    <div class="free-adds">
-        <h6 class="poppins-semibold">1. Adicionais gratuitos</h6>
-        <p class="poppins-regular">Escolha 3 Adicionais</p>
-    </div>
-</div>
-<ul *ngFor="let freeAdd of freeAdds" class="adds-list">
-    <li>
-        <h5 class="poppins-regular">{{ freeAdd.title }}</h5>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-        </svg>
-    </li>
-</ul>
-
-<div class="free-adds">
-    <h6 class="poppins-semibold">2. Adicionais Especiais</h6>
-    <p class="poppins-regular">Escolha até 2 Adicionais</p>
-</div>
-
-<ul *ngFor="let specialAdd of specialAdds" class="adds-list">
-    <li>
-        <div>
-            <h5 class="poppins-regular">{{ specialAdd.title }}</h5>
-            <p class="price poppins-regular">{{ specialAdd.price | currency:'BRL':'symbol':'1.2-2' }}</p>
+<form novalidate [formGroup]="orderFormGroup" (ngSubmit)="sendOrder()">
+    <div class="infos-product">
+        <img [src]="image" alt="" width="150">
+        <h5>{{ productTitle }}</h5>
+        <p class="price poppins-regular">{{ productPrice | currency:'BRL':'symbol':'1.2-2' }}</p>
+        <div class="free-adds">
+            <h6 class="poppins-semibold">1. Adicionais gratuitos</h6>
+            <p class="poppins-regular">{{ productSize == 1000 ? textFiveAdds : textThreeAdds }}</p>
         </div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-        </svg>
-    </li>
-</ul> 
-
-<div class="free-adds">
-    <h6 class="poppins-semibold">3. Deseja adicionar alguma observação no seu pedido?</h6>
-</div>
-
-<textarea name="obs" id="" placeholder="Enviar uma colher, Guardanapo..." maxlength=40 rows=5></textarea>
+    </div>
+    <ul *ngFor="let freeAdd of freeAdds" class="adds-list">
+        <li class="item-list">
+            <h5 class="poppins-regular">{{ freeAdd.title }}</h5>
+            <div class="add-remove-item">
+                <!--Esse é o icone de remover-->
+                <button class="icon" (click)="decrementFreeAdds(freeAdd)" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                    </svg>
+                </button>
+                <div class="icon">
+                    <p class="add-number">{{ chooseFreeAddsCount[freeAdd.id] ? chooseFreeAddsCount[freeAdd.id].count : 0 }}</p>
+                </div>
+                <!--Esse é o icone de adicionar-->
+                <button class="icon" type="button" [ngClass]="{ 'add-disabled': blockAdd }" [disabled]="blockAdd" (click)="incrementFreeAdds(freeAdd)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                    </svg>
+                </button>
+            </div>
+        </li>
+    </ul>
+    
+    <div class="free-adds">
+        <h6 class="poppins-semibold">2. Adicionais Especiais</h6>
+        <p class="poppins-regular">Escolha até 2 Adicionais</p>
+    </div>
+    
+    <ul *ngFor="let specialAdd of specialAdds; let i = index;" class="adds-list">
+        <li class="item-list">
+            <div>
+                <h5 class="poppins-regular">{{ specialAdd.title }}</h5>
+                <p class="price poppins-regular">{{ specialAdd.price | currency:'BRL':'symbol':'1.2-2' }}</p>
+            </div>
+            <div class="add-remove-item">
+                <!--Esse é o icone de remover-->
+                <button class="icon" (click)="decrementSpecialAdds(specialAdd)" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                    </svg>
+                </button>
+                <div class="icon">
+                    <p class="add-number">{{ chooseSpecialAddsCount[specialAdd.id] ? chooseSpecialAddsCount[specialAdd.id].count : 0 }}</p>
+                </div>
+                <!--Esse é o icone de adicionar-->
+                <button class="icon" type="button" [ngClass]="{ 'add-disabled': blockpecialAdds }" [disabled]="blockpecialAdds" (click)="incrementSpecialAdds(specialAdd)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                    </svg>
+                </button>
+            </div>
+        </li>
+    </ul> 
+    
+    <div class="free-adds">
+        <h6 class="poppins-semibold">3. Deseja adicionar alguma observação no seu pedido?</h6>
+    </div>
+    
+    <div class="text-observation">
+        <textarea name="obs" id="" placeholder="Enviar uma colher, Guardanapo..." maxlength=150 rows=5 formControlName="observation" (input)="attCharacters()"></textarea>
+        <div>
+            <span>{{ sizeObservation }}/150</span>
+        </div>
+    </div>
+    
+    <button class="btn add-btn poppins-regular" type="submit">Adicionar</button>
+</form>

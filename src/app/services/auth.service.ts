@@ -11,9 +11,14 @@ export class AuthService {
   baseUrlSimpleProducts = 'http://localhost:3000/simpleProducts';
   baseUrlFreeAdds = 'http://localhost:3000/freeAdds';
   baseUrlSpecialAdds = 'http://localhost:3000/specialAdds';
+  baseUrlOrders = 'http://localhost:3000/orders';
+  private orders: any[] = [];
+  private finallyOrders: any[] = [];
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    this.loadOrders();
+  }
 
   registerUser(user: any): Observable<any> {
     return this.http.post<any>(this.baseUrlUsers, user);
@@ -94,6 +99,57 @@ export class AuthService {
     );
   }
 
+  private saveOrders() {
+    localStorage.setItem('orders', JSON.stringify(this.orders));
+  }
+
+  private loadOrders() {
+    const savedOrders = localStorage.getItem('orders');
+    this.orders = savedOrders ? JSON.parse(savedOrders) : [];
+  }
+
+  addOrder(order: any) {
+    this.orders.push(order);
+    this.saveOrders();
+  }
+
+  getOrders() {
+    return this.orders;
+  }
+
+  clearOrders() {
+    this.orders = [];
+    localStorage.removeItem('orders');
+  }
+
+  removeOrder(orderToDelete: any) {
+    this.orders = this.orders.filter(order => order !== orderToDelete);
+    this.saveOrders();
+  }
+
+  submitOrders(userId: string, orders: any[]): Observable<any> {
+    const url = `${this.baseUrlUsers}/${userId}`;
+    return this.http.get(url).pipe(
+      switchMap((user: any) => {
+        const currentOrders = user.orders || [];
+        const updatedOrders = [...currentOrders, ...orders];
+        return this.http.patch(url, { orders: updatedOrders });
+      }),
+      switchMap((response) => {
+        this.clearOrders(); 
+        return of(response);
+      })
+    );
+  }
+
+  getUserOrders(userId: string): Observable<any[]> {
+    return this.http.get<any>(`${this.baseUrlUsers}/${userId}`).pipe(
+      switchMap(user => of(user.orders || []))
+    );
+  }
+  
+  
+  
   getProducts(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrlProducts);
   }

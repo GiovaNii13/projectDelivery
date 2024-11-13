@@ -7,11 +7,13 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../services/auth.service';
 import { ExtrasComponent } from '../extras/extras.component';
+import { CartComponent } from '../cart/cart.component';
+import { OrdersComponent } from "../orders/orders.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [LoginComponent, CommonModule, CadastroComponent, MyProfileComponent, ToastModule, ExtrasComponent],
+  imports: [LoginComponent, CommonModule, MyProfileComponent, ToastModule, ExtrasComponent, CartComponent, OrdersComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   providers: [MessageService]
@@ -28,6 +30,9 @@ export class HomeComponent implements OnInit {
   readyProducts: any[] = [];
   sizesProducts: any[] = [];
   selectedProduct: any = null;
+  cartOn: boolean = false;
+  orderOn: boolean = false;
+  orders: any[] = [];
 
   constructor(
     private messageService: MessageService,
@@ -60,7 +65,7 @@ export class HomeComponent implements OnInit {
 
   ordersOn() {
     if(this.logged) {
-      console.log('Está logado')
+      this.orderOn = true;
     } else {
       this.loginOn = true;
     }
@@ -68,7 +73,7 @@ export class HomeComponent implements OnInit {
 
   shoppingCartOn() {
     if(this.logged) {
-      console.log('Está logado')
+      this.cartOn = true;
     } else {
       this.loginOn = true;
     }
@@ -121,6 +126,19 @@ export class HomeComponent implements OnInit {
     this.extrasOn = false;
   }
 
+  closeCartComponent() {
+    this.cartOn = false;
+    this.getOrders();
+  }
+
+  closeOrderComponent() {
+    this.orderOn = false;
+  }
+
+  getOrders() {
+    this.orders = this.authService.getOrders();
+  }
+
   ngOnInit(): void {
     const user = localStorage.getItem('loggedUser');
     if (user) {
@@ -128,5 +146,6 @@ export class HomeComponent implements OnInit {
     }
     this.getProducts();
     this.getSizesProducts();
+    this.getOrders();
   }
 }

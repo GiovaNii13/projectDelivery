@@ -5,49 +5,123 @@
       "name": "Giovani Alves Nunes",
       "email": "giovani.a.n13@hotmail.com",
       "password": "Teste1234",
-      "addresses": []
-    },
-    {
-      "id": "1101",
-      "name": "Fulano da silva",
-      "email": "fulano@gmail.com",
-      "password": "Teste123",
       "addresses": [
         {
-          "adressName": "Teste de edição",
-          "cep": "17404034",
-          "street": "Rua Capitão Isaias Rodrigues Martins",
-          "number": 12,
-          "neighborhood": "Jardim Brasil",
+          "adressName": "Casa",
+          "cep": "17400001",
+          "street": "Rua Deputado Manoel Joaquim Fernandes",
+          "number": 2222,
+          "neighborhood": "Paulista",
           "city": "Garça",
           "id": 1
         },
         {
-          "adressName": "Teste de edição",
-          "cep": "17404034",
-          "street": "Rua Capitão Isaias Rodrigues Martins",
-          "number": 12,
-          "neighborhood": "Jardim Brasil",
+          "adressName": "Trabalho",
+          "cep": "17400001",
+          "street": "Rua Deputado Manoel Joaquim Fernandes",
+          "number": 11111,
+          "neighborhood": "Paulista",
           "city": "Garça",
-          "id": 1
+          "id": 2
+        }
+      ],
+      "orders": [
+        {
+          "productImage": "/assets/imgs/3.png",
+          "productTitle": "AÇAÍ - 300ML",
+          "freeAdds": {
+            "1": {
+              "title": "Morango",
+              "count": 1
+            },
+            "2": {
+              "title": "Banana",
+              "count": 1
+            },
+            "3": {
+              "title": "Kiwi",
+              "count": 1
+            }
+          },
+          "specialAdds": {
+            "1": {
+              "title": "Nutella",
+              "price": 4,
+              "count": 1
+            },
+            "2": {
+              "title": "KitKat",
+              "price": 3,
+              "count": 1
+            }
+          },
+          "observation": "primeiro açai de 21 conto",
+          "price": 21,
+          "status": "pending"
         },
         {
-          "adressName": "Teste de edição",
-          "cep": "17404034",
-          "street": "Rua Capitão Isaias Rodrigues Martins",
-          "number": 12,
-          "neighborhood": "Jardim Brasil",
-          "city": "Garça",
-          "id": 1
+          "productImage": "/assets/imgs/3.png",
+          "productTitle": "AÇAÍ - 500ML",
+          "freeAdds": {
+            "1": {
+              "title": "Morango",
+              "count": 1
+            },
+            "2": {
+              "title": "Banana",
+              "count": 1
+            },
+            "3": {
+              "title": "Kiwi",
+              "count": 1
+            }
+          },
+          "specialAdds": {},
+          "observation": "segundo de 18\n",
+          "price": 18,
+          "status": "pending"
         },
         {
-          "adressName": "Teste de edição",
-          "cep": "17404034",
-          "street": "Rua Capitão Isaias Rodrigues Martins",
-          "number": 12,
-          "neighborhood": "Jardim Brasil",
-          "city": "Garça",
-          "id": 1
+          "productImage": "/assets/imgs/3.png",
+          "productTitle": "AÇAÍ - 700ML",
+          "freeAdds": {
+            "5": {
+              "title": "Leite condensado",
+              "count": 1
+            },
+            "6": {
+              "title": "M&M's",
+              "count": 1
+            },
+            "8": {
+              "title": "Granola",
+              "count": 1
+            }
+          },
+          "specialAdds": {
+            "2": {
+              "title": "KitKat",
+              "price": 3,
+              "count": 1
+            }
+          },
+          "observation": "terceiro de 25",
+          "price": 25,
+          "status": "pending"
+        },
+        {
+          "productImage": "/assets/imgs/3.png",
+          "productTitle": "AÇAÍ - 1000ML",
+          "freeAdds": {
+            "9": {
+              "title": "Somente açai",
+              "count": 5
+            }
+          },
+          "specialAdds": {},
+          "observation": "quarto de 27",
+          "price": 27,
+          "status": "pending"
         }
       ]
     }

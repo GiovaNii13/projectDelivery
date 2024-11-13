@@ -1,0 +1,62 @@
+<div class="header-cart">
+    <div>
+        <h2 class="poppins-bold">Carrinho</h2>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16" (click)="closeCartComponent()">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+    </svg>
+</div>
+<div class="content">
+  <p class="poppins-semibold" *ngIf="!orders.length">Carrinho vazio</p>
+  <div *ngIf="!paymentMethod">
+    <div *ngFor="let order of orders" class="acai-build-card">
+        <div class="card-content">
+          <h4>{{ order.productTitle }}</h4>
+          <p *ngIf="order.freeAdds && getAdditions(order.freeAdds).length">
+            <strong>Adicionais</strong>
+            <span *ngFor="let item of getAdditions(order.freeAdds)">
+              {{ item.title }} x {{ item.count }}
+              <span *ngIf="!isLastItem(order.freeAdds, item)">, </span>
+            </span>
+          </p>
+          <p *ngIf="order.specialAdds && getAdditions(order.specialAdds).length">
+            <strong>Adicionais Especiais:</strong>
+            <span *ngFor="let item of getAdditions(order.specialAdds)">
+              {{ item.title }} x {{ item.count }}
+              <span *ngIf="!isLastItem(order.specialAdds, item)">, </span>
+            </span>
+          </p>
+          <p *ngIf="order?.observation">Observações: {{ order.observation }}</p>
+          <span class="price">R$ {{ order.price | currency: 'BRL' }}</span>
+        </div>
+        <div class="card-image">
+          <img [src]="order.productImage" alt="{{ order.productTitle }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16" (click)="removeOrder(order)">
+            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+          </svg>
+        </div>
+    </div>
+    <button class="btn btn-success" (click)="paymentMethod = true">Fazer pedido</button>
+  </div>
+  <div *ngIf="paymentMethod">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+    </svg>
+    <h5>Forma de Pagamento</h5>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+      <label class="form-check-label" for="flexRadioDefault1">
+        Cartão
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+      <label class="form-check-label" for="flexRadioDefault2">
+        Dinheiro
+      </label>
+    </div>
+  </div>
+  <button class="btn btn-success" *ngIf="orders.length" type="button" (click)="submitOrder()">Finalizar pedido</button>
+</div>
+

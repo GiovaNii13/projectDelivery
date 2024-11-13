@@ -24,16 +24,20 @@
                 <div class="store-itens-unit" (click)="shoppingCartOn()">
                     <img class="icon" src="../../../assets/icons/2.svg" alt="">
                     <p class="poppins-light">Carrinho</p>
+                    <div *ngIf="orders.length > 0" class="infos-cart">
+                        <p class="poppins-bold">{{ orders.length }}</p>
+                    </div>
                 </div>
                 <div class="store-itens-unit" (click)="ordersOn()">
                     <img class="icon" src="../../../assets/icons/3.svg" alt="">
                     <p class="poppins-light">Pedidos</p>
                 </div>
-                <div *ngIf="logged" class="store-itens-unit" (click)="profileOn = true">
+                <div *ngIf="logged" class="store-itens-unit" (click)="logged ? profileOn = true : loginOn = true">
                     <img src="../../../assets/icons/4.svg" alt="">
                     <p class="poppins-light">Perfil</p>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>
@@ -96,5 +100,17 @@
 <div *ngIf="profileOn" class="overlay">
     <div class="my-profile">
         <app-my-profile (close)="closeProfileComponent()" (logout)="logout()"></app-my-profile>
+    </div>
+</div>
+
+<div *ngIf="cartOn" class="overlay">
+    <div class="cart">
+        <app-cart (close)="closeCartComponent()"></app-cart>
+    </div>
+</div>
+
+<div *ngIf="orderOn" class="overlay">
+    <div class="cart">
+        <app-orders (close)="closeOrderComponent()"></app-orders>
     </div>
 </div>

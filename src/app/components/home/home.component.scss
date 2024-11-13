@@ -321,7 +321,7 @@
     background-color: white;
     top: 0;
     right: 0;
-    width: 20vw;
+    width: 25vw;
     height: 100vh;
     overflow-y: auto;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
@@ -338,4 +338,47 @@
     align-items: center;
     justify-content: center;
     z-index: 999;
+}
+
+.cart {
+    width: 50vw;
+    min-width: 20vw;
+    min-height: 50vh;
+    height: auto;
+    background-color: white;
+    border: solid 1px #512036;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.store-itens-unit {
+    position: relative;
+}
+
+.infos-cart {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        font-size: 12px !important;
+        color: #FFFFFF;
+    }
+
+    &:hover {
+        p {
+            color: #FFFFFF !important;
+            cursor: default;
+        }
+    }
 }

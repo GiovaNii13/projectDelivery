@@ -8,7 +8,7 @@ import { AdressComponent } from '../adress/adress.component';
 @Component({
   selector: 'app-my-profile',
   standalone: true,
-  imports: [CadastroComponent, ReactiveFormsModule, CommonModule, AdressComponent],
+  imports: [ReactiveFormsModule, CommonModule, AdressComponent],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss'
 })
