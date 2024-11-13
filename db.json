@@ -122,6 +122,30 @@
           "observation": "quarto de 27",
           "price": 27,
           "status": "pending"
+        },
+        {
+          "productImage": "/assets/imgs/3.png",
+          "productTitle": "AÇAÍ - 500ML",
+          "freeAdds": {
+            "9": {
+              "title": "Somente açai",
+              "count": 3
+            }
+          },
+          "specialAdds": {},
+          "observation": null,
+          "price": 18,
+          "status": "pending",
+          "paymentMethod": "Cartão",
+          "selectedAddress": {
+            "adressName": "Casa",
+            "cep": "17400001",
+            "street": "Rua Deputado Manoel Joaquim Fernandes",
+            "number": 2222,
+            "neighborhood": "Paulista",
+            "city": "Garça",
+            "id": 1
+          }
         }
       ]
     }

@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
@@ -19,6 +19,8 @@ export class CartComponent implements OnInit {
   paymentMethod: boolean = false;
   addresses: any[] = [];
   id: string | undefined;
+  selectedAddress: any;
+  selectedPaymentMethod: string = '';
 
   constructor(
     private authService: AuthService
@@ -52,7 +54,12 @@ export class CartComponent implements OnInit {
   submitOrder() {
     const loggedUser = localStorage.getItem('loggedUser');
     const userId = loggedUser ? JSON.parse(loggedUser).id : null;
-    this.authService.submitOrders(userId, this.orders).subscribe(response => {
+    const updatedOrders = this.orders.map(order => ({
+      ...order,
+      paymentMethod: this.selectedPaymentMethod,
+      selectedAddress: this.selectedAddress
+    }));
+    this.authService.submitOrders(userId, updatedOrders).subscribe(response => {
       console.log('Pedido enviado:', response);
     });
   }
