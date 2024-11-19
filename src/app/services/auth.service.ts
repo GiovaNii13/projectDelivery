@@ -28,8 +28,8 @@ export class AuthService {
     return this.http.get<any[]>(this.baseUrlUsers);
   }
 
-  checkLogin(email: string, password: string): Observable<any> {
-    return this.http.get<any[]>(`${this.baseUrlUsers}?email=${email}&password=${password}`);
+  checkLogin(email: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrlUsers}?email=${email}`);
   }
 
   getUser(userId: any): Observable<any> {
@@ -127,16 +127,16 @@ export class AuthService {
     this.saveOrders();
   }
 
-  submitOrders(userId: string, orders: any[]): Observable<any> {
+  submitOrders(userId: string, newOrder: any): Observable<any> {
     const url = `${this.baseUrlUsers}/${userId}`;
     return this.http.get(url).pipe(
       switchMap((user: any) => {
         const currentOrders = user.orders || [];
-        const updatedOrders = [...currentOrders, ...orders];
+        const updatedOrders = [...currentOrders, newOrder];
         return this.http.patch(url, { orders: updatedOrders });
       }),
       switchMap((response) => {
-        this.clearOrders(); 
+        this.clearOrders();
         return of(response);
       })
     );
@@ -147,9 +147,7 @@ export class AuthService {
       switchMap(user => of(user.orders || []))
     );
   }
-  
-  
-  
+
   getProducts(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrlProducts);
   }

@@ -2,13 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-extras',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ToastModule],
   templateUrl: './extras.component.html',
-  styleUrl: './extras.component.scss'
+  styleUrl: './extras.component.scss',
+  providers: [MessageService]
 })
 export class ExtrasComponent implements OnInit {
  
@@ -16,6 +19,7 @@ export class ExtrasComponent implements OnInit {
   @Input() productTitle!: string;
   @Input() productPrice!:number;
   @Output() close = new EventEmitter<void>();
+  @Output() orderAdded = new EventEmitter<void>();
   orders: any[] = [];
   specialAdds!: any[];
   freeAdds!: any[];
@@ -29,12 +33,18 @@ export class ExtrasComponent implements OnInit {
   textThreeAdds = 'Escolha 3 Adicionais';
   textFiveAdds = 'Escolha 5 Adicionais'
   sizeObservation: number = 0;
+  totalPrice!: number;
 
   constructor(
+    private messageService: MessageService,
     private authService: AuthService,
     private fb: FormBuilder
   ) {
 
+  }
+
+  showToastMessage(type: any, title: any, message: any) {
+    this.messageService.add({ severity: type, summary: title, detail: message });
   }
 
   builderOrderFormGroup() {
@@ -134,6 +144,7 @@ export class ExtrasComponent implements OnInit {
     }
     const totalAdds = Object.values(this.chooseSpecialAddsCount).reduce((sum, item) => sum + item.count, 0);
     this.blockpecialAdds = totalAdds >= 2;
+    this.updateTotalPrice();
     console.log(this.chooseSpecialAddsCount);
   }
   
@@ -147,15 +158,40 @@ export class ExtrasComponent implements OnInit {
     }
     const totalAdds = Object.values(this.chooseSpecialAddsCount).reduce((sum, item) => sum + item.count, 0);
     this.blockpecialAdds = totalAdds >= 2;
+    this.updateTotalPrice();
     console.log(this.chooseSpecialAddsCount);
   }
+  
+  updateTotalPrice() {
+    let total = this.productPrice;
+    Object.values(this.chooseSpecialAddsCount).forEach((item) => {
+      total += item.price * item.count;
+    });
+    this.totalPrice = total;
+  }
+  
 
   sendOrder() {
+    let requiredFreeAdds = 0;
+    if (this.productTitle === 'AÇAÍ - 1000ML') {
+      requiredFreeAdds = 5;
+    } else {
+      requiredFreeAdds = 3;
+    }
+    const totalFreeAdds = Object.values(this.chooseFreeAddsCount).reduce((total, add) => {
+      return total + (add.count || 0);
+    }, 0);
+    if (totalFreeAdds < requiredFreeAdds) {
+      const type = 'error';
+      const title = 'Erro';
+      const message = `Escolha os ${requiredFreeAdds} adicionais grátis`;
+      this.showToastMessage(type, title, message);
+      return;
+    }
     let totalPrice = this.productPrice;
     Object.values(this.chooseSpecialAddsCount).forEach((item) => {
       totalPrice += item.price * item.count;
     });
-
     const order = {
       productImage: this.image,
       productTitle: this.productTitle,
@@ -163,11 +199,11 @@ export class ExtrasComponent implements OnInit {
       specialAdds: this.chooseSpecialAddsCount,
       observation: this.orderFormGroup.get('observation')?.value,
       price: totalPrice,
-      status: 'pending'
     };
     if (this.orderFormGroup.valid) {
-      this.authService.addOrder(order)
-      console.log(order)
+      this.authService.addOrder(order);
+      this.orderAdded.emit();
+      console.log(order);
     }
     this.closeExtrasComponent();
   }
@@ -183,6 +219,7 @@ export class ExtrasComponent implements OnInit {
     this.getProductSize();
     this.builderOrderFormGroup();
     this.orders = this.authService.getOrders();
+    this.totalPrice = this.productPrice;
     console.log(this.orders, 'pedidos enviados para o carrinho');
   }
 }

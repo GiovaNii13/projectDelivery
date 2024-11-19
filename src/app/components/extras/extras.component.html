@@ -82,5 +82,6 @@
         </div>
     </div>
     
-    <button class="btn add-btn poppins-regular" type="submit">Adicionar</button>
+    <button class="btn add-btn poppins-regular" type="submit">Adicionar ({{ totalPrice | currency : 'BRL' }})</button>
+    <p-toast></p-toast>
 </form>

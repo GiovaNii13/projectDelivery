@@ -8,174 +8,304 @@
       "addresses": [
         {
           "adressName": "Casa",
-          "cep": "17400001",
-          "street": "Rua Deputado Manoel Joaquim Fernandes",
-          "number": 2222,
-          "neighborhood": "Paulista",
+          "cep": "17402652",
+          "street": "Rua Naudert da Silva Braga",
+          "number": 29,
+          "neighborhood": "Jardim São Benedito",
           "city": "Garça",
           "id": 1
-        },
-        {
-          "adressName": "Trabalho",
-          "cep": "17400001",
-          "street": "Rua Deputado Manoel Joaquim Fernandes",
-          "number": 11111,
-          "neighborhood": "Paulista",
-          "city": "Garça",
-          "id": 2
         }
       ],
       "orders": [
         {
-          "productImage": "/assets/imgs/3.png",
-          "productTitle": "AÇAÍ - 300ML",
-          "freeAdds": {
-            "1": {
-              "title": "Morango",
-              "count": 1
-            },
-            "2": {
-              "title": "Banana",
-              "count": 1
-            },
-            "3": {
-              "title": "Kiwi",
-              "count": 1
-            }
-          },
-          "specialAdds": {
-            "1": {
-              "title": "Nutella",
-              "price": 4,
-              "count": 1
-            },
-            "2": {
-              "title": "KitKat",
-              "price": 3,
-              "count": 1
-            }
-          },
-          "observation": "primeiro açai de 21 conto",
-          "price": 21,
-          "status": "pending"
-        },
-        {
-          "productImage": "/assets/imgs/3.png",
-          "productTitle": "AÇAÍ - 500ML",
-          "freeAdds": {
-            "1": {
-              "title": "Morango",
-              "count": 1
-            },
-            "2": {
-              "title": "Banana",
-              "count": 1
-            },
-            "3": {
-              "title": "Kiwi",
-              "count": 1
-            }
-          },
-          "specialAdds": {},
-          "observation": "segundo de 18\n",
-          "price": 18,
-          "status": "pending"
-        },
-        {
-          "productImage": "/assets/imgs/3.png",
-          "productTitle": "AÇAÍ - 700ML",
-          "freeAdds": {
-            "5": {
-              "title": "Leite condensado",
-              "count": 1
-            },
-            "6": {
-              "title": "M&M's",
-              "count": 1
-            },
-            "8": {
-              "title": "Granola",
-              "count": 1
-            }
-          },
-          "specialAdds": {
-            "2": {
-              "title": "KitKat",
-              "price": 3,
-              "count": 1
-            }
-          },
-          "observation": "terceiro de 25",
-          "price": 25,
-          "status": "pending"
-        },
-        {
-          "productImage": "/assets/imgs/3.png",
-          "productTitle": "AÇAÍ - 1000ML",
-          "freeAdds": {
-            "9": {
-              "title": "Somente açai",
-              "count": 5
-            }
-          },
-          "specialAdds": {},
-          "observation": "quarto de 27",
-          "price": 27,
-          "status": "pending"
-        },
-        {
-          "productImage": "/assets/imgs/3.png",
-          "productTitle": "AÇAÍ - 500ML",
-          "freeAdds": {
-            "9": {
-              "title": "Somente açai",
-              "count": 3
-            }
-          },
-          "specialAdds": {},
-          "observation": null,
-          "price": 18,
+          "orderNumber": 1,
+          "totalPrice": 39,
+          "paymentMethod": "Dinheiro",
+          "change": 1,
           "status": "pending",
-          "paymentMethod": "Cartão",
           "selectedAddress": {
             "adressName": "Casa",
-            "cep": "17400001",
-            "street": "Rua Deputado Manoel Joaquim Fernandes",
-            "number": 2222,
-            "neighborhood": "Paulista",
+            "cep": "17402652",
+            "street": "Rua Naudert da Silva Braga",
+            "number": 29,
+            "neighborhood": "Jardim São Benedito",
             "city": "Garça",
             "id": 1
-          }
+          },
+          "date": "2024-11-19T01:08:56.996Z",
+          "order": [
+            {
+              "productImage": "/assets/imgs/1.png",
+              "productTitle": "AÇAÍ ESPECIAL - 300ML",
+              "freeAdds": {
+                "2": {
+                  "title": "M&M",
+                  "count": 1
+                },
+                "3": {
+                  "title": "Chocoboll",
+                  "count": 1
+                },
+                "4": {
+                  "title": "KitKat",
+                  "count": 1
+                },
+                "5": {
+                  "title": "Leite condensado",
+                  "count": 1
+                },
+                "6": {
+                  "title": "Nutella",
+                  "count": 1
+                }
+              },
+              "specialAdds": {},
+              "observation": null,
+              "price": 18
+            },
+            {
+              "productImage": "/assets/imgs/3.png",
+              "productTitle": "AÇAÍ - 500ML",
+              "freeAdds": {
+                "1": {
+                  "title": "Morango",
+                  "count": 1
+                },
+                "2": {
+                  "title": "Banana",
+                  "count": 1
+                },
+                "4": {
+                  "title": "Leite em pó",
+                  "count": 1
+                }
+              },
+              "specialAdds": {
+                "5": {
+                  "title": "Ouro Branco",
+                  "price": 3,
+                  "count": 1
+                }
+              },
+              "observation": "teste de observação",
+              "price": 21
+            }
+          ]
+        },
+        {
+          "orderNumber": 2,
+          "totalPrice": 78.5,
+          "paymentMethod": "Cartão",
+          "change": null,
+          "status": "pending",
+          "selectedAddress": {
+            "adressName": "Casa",
+            "cep": "17402652",
+            "street": "Rua Naudert da Silva Braga",
+            "number": 29,
+            "neighborhood": "Jardim São Benedito",
+            "city": "Garça",
+            "id": 1
+          },
+          "date": "2024-11-19T01:14:38.005Z",
+          "order": [
+            {
+              "productImage": "/assets/imgs/4.png",
+              "productTitle": "AÇAÍ TRADICIONAL NA TIGELA - 300ML",
+              "freeAdds": {
+                "2": {
+                  "title": "Granola",
+                  "count": 1
+                },
+                "3": {
+                  "title": "Leite condensado",
+                  "count": 1
+                },
+                "4": {
+                  "title": "Banana",
+                  "count": 1
+                }
+              },
+              "specialAdds": {},
+              "observation": null,
+              "price": 19
+            },
+            {
+              "productImage": "/assets/imgs/2.png",
+              "productTitle": "AÇAÍ TRADICIONAL COM CANUDOS - 500ML",
+              "freeAdds": {
+                "2": {
+                  "title": "Banana",
+                  "count": 1
+                },
+                "3": {
+                  "title": "Leite em pó",
+                  "count": 1
+                },
+                "4": {
+                  "title": "Granola",
+                  "count": 1
+                },
+                "5": {
+                  "title": "Canudos de chocolate",
+                  "count": 1
+                },
+                "6": {
+                  "title": "Leite condensado",
+                  "count": 1
+                }
+              },
+              "specialAdds": {},
+              "observation": null,
+              "price": 21
+            },
+            {
+              "productImage": "/assets/imgs/1.png",
+              "productTitle": "AÇAÍ ESPECIAL - 300ML",
+              "freeAdds": {
+                "2": {
+                  "title": "M&M",
+                  "count": 1
+                },
+                "3": {
+                  "title": "Chocoboll",
+                  "count": 1
+                },
+                "4": {
+                  "title": "KitKat",
+                  "count": 1
+                },
+                "5": {
+                  "title": "Leite condensado",
+                  "count": 1
+                },
+                "6": {
+                  "title": "Nutella",
+                  "count": 1
+                }
+              },
+              "specialAdds": {},
+              "observation": null,
+              "price": 18
+            },
+            {
+              "productImage": "/assets/imgs/3.png",
+              "productTitle": "AÇAÍ ESPECIAL CREME DE LEITE NINHO - 500ML",
+              "freeAdds": {
+                "2": {
+                  "title": "Morango",
+                  "count": 1
+                },
+                "3": {
+                  "title": "Creme de leite ninho",
+                  "count": 1
+                }
+              },
+              "specialAdds": {},
+              "observation": null,
+              "price": 20.5
+            }
+          ]
         }
       ]
+    },
+    {
+      "id": "4f68",
+      "name": "Giovani Alves Nuness",
+      "email": "teste@gmail.com",
+      "password": "teste"
     }
   ],
   "products": [
     {
       "id": "1",
       "title": "AÇAÍ TRADICIONAL COM CANUDOS - 500ML",
-      "description": "Acompanha: Açaí, Banana, leite em pó, granola, Canudos de chocolate, leite condensado.",
+      "freeAdds": {
+        "2": {
+          "title": "Banana",
+          "count": 1
+        },
+        "3": {
+          "title": "Leite em pó",
+          "count": 1
+        },
+        "4": {
+          "title": "Granola",
+          "count": 1
+        },
+        "5": {
+          "title": "Canudos de chocolate",
+          "count": 1
+        },
+        "6": {
+          "title": "Leite condensado",
+          "count": 1
+        }
+      },
       "price": 21,
       "image": "/assets/imgs/2.png"
     },
     {
       "id": "2",
       "title": "AÇAÍ ESPECIAL - 300ML",
-      "description": "Acompanha: Açaí, M&M, Chocoboll, KitKat, leite condessado e nutella.",
+      "freeAdds": {
+        "2": {
+          "title": "M&M",
+          "count": 1
+        },
+        "3": {
+          "title": "Chocoboll",
+          "count": 1
+        },
+        "4": {
+          "title": "KitKat",
+          "count": 1
+        },
+        "5": {
+          "title": "Leite condensado",
+          "count": 1
+        },
+        "6": {
+          "title": "Nutella",
+          "count": 1
+        }
+      },
       "price": 18,
       "image": "/assets/imgs/1.png"
     },
     {
       "id": "3",
       "title": "AÇAÍ TRADICIONAL NA TIGELA - 300ML",
-      "description": "Açaí, granola, leite condensado, e banana.",
+      "freeAdds": {
+        "2": {
+          "title": "Granola",
+          "count": 1
+        },
+        "3": {
+          "title": "Leite condensado",
+          "count": 1
+        },
+        "4": {
+          "title": "Banana",
+          "count": 1
+        }
+      },
       "price": 19,
       "image": "/assets/imgs/4.png"
     },
     {
       "id": "4",
       "title": "AÇAÍ ESPECIAL CREME DE LEITE NINHO - 500ML",
-      "description": "Açaí, morango e creme de leite ninho.",
+      "freeAdds": {
+        "2": {
+          "title": "Morango",
+          "count": 1
+        },
+        "3": {
+          "title": "Creme de leite ninho",
+          "count": 1
+        }
+      },
       "price": 20.5,
       "image": "/assets/imgs/3.png"
     }

@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './orders.component.html',
-  styleUrl: './orders.component.scss'
+  styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
@@ -15,24 +15,26 @@ export class OrdersComponent implements OnInit {
 
   constructor(
     private authService: AuthService
-  ) {
-
-  }
-
-  getOrders() {
-    const loggedUser = localStorage.getItem('loggedUser');
-    const userId = loggedUser ? JSON.parse(loggedUser).id : null;
-    this.authService.getUserOrders(userId).subscribe(orders => {
-      this.orders = orders
-      console.log('Pedidos do usuário:', orders);
-    })
-  }
-
-  closeOrderComponent() {
-    this.close.emit();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getOrders();
+  }
+
+  getOrders(): void {
+    const loggedUser = localStorage.getItem('loggedUser');
+    const userId = loggedUser ? JSON.parse(loggedUser).id : null;
+    this.authService.getUserOrders(userId).subscribe(orders => {
+      this.orders = orders.reverse(); // Inverte a ordem dos pedidos
+      console.log('Pedidos do usuário:', this.orders);
+    });
+  }
+
+  objectToArray(obj: any): any[] {
+    return Object.values(obj || {});
+  }
+
+  closeOrderComponent(): void {
+    this.close.emit();
   }
 }

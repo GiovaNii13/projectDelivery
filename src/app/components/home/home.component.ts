@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit {
   cartOn: boolean = false;
   orderOn: boolean = false;
   orders: any[] = [];
+  showExtrasComponent = true;
+  successMessage: string | null = null;
+  userName!: any;
+  clickedIndex: number | null = null;
 
   constructor(
     private messageService: MessageService,
@@ -40,13 +44,10 @@ export class HomeComponent implements OnInit {
   ) {
   }
 
-  showSuccess() {
-    this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Operação realizada com sucesso' });
+  showToastMessage(type: any, title: any, message: any) {
+    this.messageService.add({ severity: type, summary: title, detail: message });
   }
 
-  showError() {
-    this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Falha ao realizar operação' });
-  }
   closeComponent() {
     this.loginOn = false;
   }
@@ -118,8 +119,13 @@ export class HomeComponent implements OnInit {
   }
 
   openExtras(sizeProduct: any) {
-    this.selectedProduct = sizeProduct;
-    this.extrasOn = true;
+    if(this.logged) {
+      this.selectedProduct = sizeProduct;
+      this.extrasOn = true;
+    } else {
+      this.loginOn = true;
+    }
+    
 }
 
   closeExtrasComponent() {
@@ -139,7 +145,92 @@ export class HomeComponent implements OnInit {
     this.orders = this.authService.getOrders();
   }
 
+  showSuccessToast() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: 'Açaí adicionado ao carrinho!',
+    });
+  }
+
+  showSuccessLogin() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: `Seja bem vindo ${this.userName}!`,
+    });
+  }
+
+  showSuccessOrder() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: 'Pedido realizado!',
+    });
+  }
+
+  showSuccessReadyOrder(title: any) {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: `${title} adicionado ao carrinho!`,
+    });
+  }
+
+  showErrorAdress() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Erro',
+      detail: 'Entre no seu perfil e adicione um endereço para fazer o seu pedido!',
+    });
+  }
+  
+  getUser() {
+    const usuarioSalvo = localStorage.getItem('loggedUser');
+    if (usuarioSalvo) {
+      const usuario = JSON.parse(usuarioSalvo);
+      this.userName = usuario.name;
+    }
+  }
+
+  addToCart(product: any) {
+    const order = {
+        productImage: product.image,
+        productTitle: product.title,
+        freeAdds: product.freeAdds,
+        specialAdds: {},
+        observation: null,
+        price: product.price,
+    };
+    this.authService.addOrder(order);
+    this.showSuccessReadyOrder(order.productTitle)
+    console.log('Produto adicionado ao carrinho:', order);
+  }
+
+  objectToArray(obj: any): any[] {
+    return Object.keys(obj).map(key => obj[key]);
+  }
+
+  isLastItem(additions: any, item: any): boolean {
+    const additionsArray = Object.values(additions);
+    return additionsArray[additionsArray.length - 1] === item;
+  }
+
+  handleCardClick(product: any, index: number) {
+    // Adicione ao carrinho
+    this.addToCart(product);
+
+    // Marque o card como clicado
+    this.clickedIndex = index;
+
+    // Remova o efeito após 500ms
+    setTimeout(() => {
+      this.clickedIndex = null;
+    }, 500);
+  }
+
   ngOnInit(): void {
+    this.getUser();
     const user = localStorage.getItem('loggedUser');
     if (user) {
       this.logged = true; 

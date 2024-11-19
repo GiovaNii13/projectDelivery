@@ -9,7 +9,7 @@
 </div>
 <div class="content">
   <p class="poppins-semibold" *ngIf="!orders.length">Carrinho vazio</p>
-  <div *ngIf="!paymentMethod">
+  <div *ngIf="!paymentMethod && !adressOn" class="order-list">
     <div *ngFor="let order of orders" class="acai-build-card">
         <div class="card-content">
           <h4>{{ order.productTitle }}</h4>
@@ -28,7 +28,7 @@
             </span>
           </p>
           <p *ngIf="order?.observation">Observações: {{ order.observation }}</p>
-          <span class="price">R$ {{ order.price | currency: 'BRL' }}</span>
+          <span class="price">{{ order.price | currency: 'BRL' }}</span>
         </div>
         <div class="card-image">
           <img [src]="order.productImage" alt="{{ order.productTitle }}">
@@ -37,29 +37,72 @@
           </svg>
         </div>
     </div>
-    <button class="btn btn-success" (click)="paymentMethod = true">Fazer pedido</button>
+  </div>
+  <button class="btn btn-success" *ngIf="!paymentMethod && !adressOn && orders.length" (click)="makeOrder()">Fazer pedido {{ totalPrice | currency: 'BRL' }}</button>
+</div>
+<div *ngIf="paymentMethod" class="payment-method">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16" (click)="returnOrderList()">
+    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+  </svg>
+  <h5>Forma de Pagamento</h5>
+  <span *ngIf="selectedPaymentMethod != 'Dinheiro'">Total: {{ totalPrice | currency: 'BRL' }}</span>
+  <div class="form-check">
+    <input 
+      class="form-check-input" 
+      type="radio" 
+      name="paymentMethod" 
+      [(ngModel)]="selectedPaymentMethod" 
+      [value]="'Cartão'" 
+      id="paymentCard">
+    <label class="form-check-label" for="paymentCard">Cartão</label>
   </div>
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="paymentMethod" id="card" (change)="selectedPaymentMethod = 'Cartão'">
-    <label class="form-check-label" for="card">Cartão</label>
-  </div>
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="paymentMethod" id="cash" (change)="selectedPaymentMethod = 'Dinheiro'" checked>
-    <label class="form-check-label" for="cash">Dinheiro</label>
-  </div>
-  <div *ngIf="selectedPaymentMethod == 'Dinheiro'">
-    Precisa de troco?
-  </div>
-
-  <div *ngIf="paymentMethod">
-    <h5>Endereço</h5>
-    <select [(ngModel)]="selectedAddress" class="form-control">
-      <option *ngFor="let address of addresses" [ngValue]="address">
-        {{ address.adressName }} - {{ address.street }}, {{ address.number }}
-      </option>
-    </select>
+    <input 
+      class="form-check-input" 
+      type="radio" 
+      name="paymentMethod" 
+      [(ngModel)]="selectedPaymentMethod" 
+      [value]="'Dinheiro'" 
+      id="paymentCash">
+    <label class="form-check-label" for="paymentCash">Dinheiro</label>
   </div>
 
-  <button class="btn btn-success" *ngIf="orders.length" type="button" (click)="submitOrder()">Finalizar pedido</button>
+  <div *ngIf="selectedPaymentMethod === 'Dinheiro'">
+    
+    <h5>Precisa de troco?</h5>
+    <div class="d-flex flex-column" style="text-align: center;">
+      <label for="changeNeeded">Informe o valor que você vai pagar em dinheiro:</label>
+      <span>O valor deve ser igual ou maior ao preço total</span>
+      <span>Total: {{ totalPrice | currency: 'BRL' }}</span>
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">R$</span>
+      <input type="text" class="form-control" aria-label="Valor (em reais)" placeholder="Informe o valor a ser pago" id="changeNeeded"
+      [(ngModel)]="changeNeeded">
+    </div>
+    
+  </div>
+
+  <button [ngClass]="{ 'continue-btn': selectedPaymentMethod == 'Dinheiro' }"
+    class="btn btn-primary" 
+    (click)="showSelectAdress()" 
+    [disabled]="
+      !selectedPaymentMethod || 
+      (selectedPaymentMethod === 'Dinheiro' && (!changeNeeded || changeNeeded < totalPrice))
+    ">
+    Continuar
+  </button>
+</div>
+<div *ngIf="adressOn" class="adress-box">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16" (click)="returnPaymentMethod()">
+    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+  </svg>
+  <h5>Endereço</h5>
+  <select class="form-select" placeholder="Selecione o seu endereço" [(ngModel)]="selectedAddress">
+    <option *ngFor="let address of addresses" [ngValue]="address">
+      {{ address.adressName }} - {{ address.street }}, {{ address.number }}
+    </option>
+  </select>
+  <button class="btn btn-success" type="button" (click)="submitOrder()">Finalizar pedido</button>
 </div>
 

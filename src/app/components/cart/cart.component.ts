@@ -13,6 +13,8 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class CartComponent implements OnInit {
 
   @Output() close = new EventEmitter<void>();
+  @Output() orderFinish = new EventEmitter<void>();
+  @Output() noAdress = new EventEmitter<void>();
   orders: any[] = [];
   Object: any;
   cartFormGroup!: FormGroup;
@@ -20,7 +22,10 @@ export class CartComponent implements OnInit {
   addresses: any[] = [];
   id: string | undefined;
   selectedAddress: any;
-  selectedPaymentMethod: string = '';
+  selectedPaymentMethod: string | null = null;
+  changeNeeded: number | null = null;
+  adressOn: boolean = false;
+  totalPrice: number = 0;
 
   constructor(
     private authService: AuthService
@@ -49,18 +54,42 @@ export class CartComponent implements OnInit {
   removeOrder(orderToDelete: any) {
     this.authService.removeOrder(orderToDelete);
     this.getOrders();
+    this.calculateTotalPrice(); 
   }
 
   submitOrder() {
     const loggedUser = localStorage.getItem('loggedUser');
     const userId = loggedUser ? JSON.parse(loggedUser).id : null;
-    const updatedOrders = this.orders.map(order => ({
-      ...order,
-      paymentMethod: this.selectedPaymentMethod,
-      selectedAddress: this.selectedAddress
-    }));
-    this.authService.submitOrders(userId, updatedOrders).subscribe(response => {
-      console.log('Pedido enviado:', response);
+  
+    if (!userId) {
+      console.error("Usuário não autenticado.");
+      return;
+    }
+  
+    this.authService.getUser(userId).subscribe(user => {
+      const currentOrders = user.orders || [];
+      const nextOrderNumber = currentOrders.length + 1; // Calcula o próximo número do pedido
+      const change = this.selectedPaymentMethod === 'Dinheiro' && this.changeNeeded
+        ? this.changeNeeded - this.totalPrice
+        : null;
+      const currentDateTime = new Date().toISOString();
+  
+      const newOrder = {
+        orderNumber: nextOrderNumber, // Adiciona o número do pedido
+        totalPrice: this.totalPrice,
+        paymentMethod: this.selectedPaymentMethod,
+        change: change,
+        status: 'pending',
+        selectedAddress: this.selectedAddress,
+        date: currentDateTime,
+        order: this.orders
+      };
+  
+      this.authService.submitOrders(userId, newOrder).subscribe(response => {
+        console.log('Pedido enviado:', response);
+        this.orderFinish.emit();
+        this.closeCartComponent();
+      });
     });
   }
 
@@ -77,8 +106,37 @@ export class CartComponent implements OnInit {
     }
   }
 
+  showSelectAdress() {
+    this.adressOn = true;
+    this.paymentMethod = false;
+  }
+
+  calculateTotalPrice() {
+    this.totalPrice = this.orders.reduce((sum, order) => sum + order.price, 0);
+  }
+
+  returnPaymentMethod() {
+    this.paymentMethod = true;
+    this.adressOn = false;
+  }
+
+  returnOrderList() {
+    this.paymentMethod = false;
+    this.adressOn = false;
+  }
+
+  makeOrder() {
+    if (this.addresses.length) {
+      this.paymentMethod = true;
+    } else {
+      this.noAdress.emit();
+      this.closeCartComponent();
+    }
+  }
+
   ngOnInit(): void {
     this.getOrders();
     this.getAdress();
+    this.calculateTotalPrice();
   }
 }

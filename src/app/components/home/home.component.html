@@ -46,7 +46,7 @@
     <div class="line-row"></div>
     <div class="options">
         <p [class]="mountYours? 'enable-btn': 'disable-btn'" (click)="showMountYoursContent()">Monte o seu</p>
-        <p [class]="acaiReady? 'enable-btn': 'disable-btn'" (click)="showAcaiReadyContent()">Açai</p>
+        <p [class]="acaiReady? 'enable-btn': 'disable-btn'" (click)="showAcaiReadyContent()">Açaís promocionais</p>
     </div>
     <div class="line-row"></div>
 </div>
@@ -65,35 +65,46 @@
         </div>
         <div class="overlay-extras" *ngIf="selectedProduct && extrasOn">
             <app-extras class="list-extras" [image]="selectedProduct.image" [productTitle]="selectedProduct.title"
-             (close)="closeExtrasComponent()" [productPrice]="selectedProduct.price">
+             (close)="closeExtrasComponent()" [productPrice]="selectedProduct.price" (orderAdded)="showSuccessToast()">
             </app-extras>
         </div>
     </div>
     
     
-    <div *ngIf="acaiReady" class="ready-content">
-        <div class="acai-build-card" *ngFor="let product of readyProducts;let i = index;">
-            <div class="card-content">
-                <h4>{{ product.title }}</h4>
-                <p>{{ product.description }}</p>
-                <span class="price">{{ product.price | currency:'BRL':'symbol':'1.2-2' }}</span>
-            </div>
-            <div class="card-image">
-                <img src="{{ product.image }}">
+    <div *ngIf="acaiReady">
+        <p class="poppins-regular">*Clique em um açaí da promoção para que ele seja adicionado ao seu carrinho</p>
+        <div class="ready-content">
+            <div
+                class="acai-build-card"
+                *ngFor="let product of readyProducts; let i = index;"
+                [class.clicked]="clickedIndex === i"
+                (click)="handleCardClick(product, i)">
+                <div class="card-content">
+                    <h4>{{ product.title }}</h4>
+                    <p *ngIf="product.freeAdds">
+                        <strong>Adicionais:</strong>
+                        <span *ngFor="let add of objectToArray(product.freeAdds)">
+                            {{ add.title }}<span *ngIf="!isLastItem(product.freeAdds, add)">, </span>
+                        </span>
+                    </p>
+                    <span class="price">{{ product.price | currency:'BRL':'symbol':'1.2-2' }}</span>
+                </div>
+                <div class="card-image">
+                    <img [src]="product.image" alt="{{ product.title }}">
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- <p-toast></p-toast>
 
-<button (click)="showSuccess()">Mostrar Sucesso</button>
-<button (click)="showError()">Mostrar Erro</button> -->
 
+<p-toast></p-toast>
+  
 
 <div *ngIf="loginOn" class="overlay">
     <div class="login">
-        <app-login (logged)="onLoginSuccess($event)" (close)="closeComponent()"></app-login>
+        <app-login (logged)="onLoginSuccess($event)" (close)="closeComponent()" (loginSuccess)="showSuccessLogin()"></app-login>
     </div>
 </div>
 
@@ -105,7 +116,7 @@
 
 <div *ngIf="cartOn" class="overlay">
     <div class="cart">
-        <app-cart (close)="closeCartComponent()"></app-cart>
+        <app-cart (close)="closeCartComponent()" (noAdress)="showErrorAdress()" (orderFinish)="showSuccessOrder()" ></app-cart>
     </div>
 </div>
 

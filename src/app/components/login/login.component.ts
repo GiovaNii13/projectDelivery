@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { CadastroComponent } from "../cadastro/cadastro.component";
 import { AuthService } from '../../services/auth.service';
@@ -16,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   @Output() close = new EventEmitter<void>();
   @Output() logged = new EventEmitter<boolean>();
+  @Output() loginSuccess = new EventEmitter<void>();
 
   closeLoginComponent() {
     this.close.emit();
@@ -49,14 +49,22 @@ export class LoginComponent implements OnInit {
   login() {
     const email = this.loginFormGroup.get('email')?.value;
     const password = this.loginFormGroup.get('password')?.value;
-    this.authService.checkLogin(email, password).subscribe(users => {
+  
+    this.authService.checkLogin(email).subscribe(users => {
       if (users.length > 0) {
         const user = users[0];
-        console.log('Login bem-sucedido:', user);
-        localStorage.setItem('loggedUser', JSON.stringify(user));
-        this.logged.emit(true);
+        if (user.password === password) {
+          console.log('Login bem-sucedido:', user);
+          localStorage.setItem('loggedUser', JSON.stringify(user));
+          this.logged.emit(true);
+          this.loginSuccess.emit();
+        } else {
+          this.usuarioInvalido = true;
+          console.log('Senha inválida');
+        }
       } else {
         this.usuarioInvalido = true;
+        console.log('Usuário não encontrado');
       }
     });
   }
