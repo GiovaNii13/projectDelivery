@@ -72,6 +72,7 @@ export class AdressComponent implements OnInit {
 
   enableAddressFields() {
     this.adressFormGroup.get('cep')?.disable();
+    this.adressFormGroup.get('cep')?.setValue(null);
     this.adressFormGroup.get('street')?.enable();
     this.adressFormGroup.get('neighborhood')?.enable();
     this.adressFormGroup.get('city')?.enable();

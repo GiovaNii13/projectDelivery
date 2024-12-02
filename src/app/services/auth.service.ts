@@ -38,9 +38,11 @@ export class AuthService {
   }
 
   updateUser(user: any) {
-    const loggedUser = localStorage.getItem('loggedUser');
-    const id = loggedUser ? JSON.parse(loggedUser).id : null;
-    return this.http.put<any>(`${this.baseUrlUsers}/${id}`, user);
+    return this.http.put<any>(`${this.baseUrlUsers}/${user.id}`, user);
+  }
+
+  getUserById(id: string) {
+    return this.http.get<any>(`${this.baseUrlUsers}/${id}`);
   }
 
   deleteUser() {

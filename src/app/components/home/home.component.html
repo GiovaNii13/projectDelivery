@@ -10,7 +10,6 @@
                     <h4 class="poppins-bold">Ponto do açai</h4>
                     <h6 class="poppins-regular">Açaiteria</h6>
                     <div class="d-flex infos-green-button">
-                        <!-- <button></button> -->
                         <p class="poppins-extralight"> Aberto até às 22:00</p>
                     </div>
                 </div>
@@ -104,13 +103,13 @@
 
 <div *ngIf="loginOn" class="overlay">
     <div class="login">
-        <app-login (logged)="onLoginSuccess($event)" (close)="closeComponent()" (loginSuccess)="showSuccessLogin()"></app-login>
+        <app-login (logged)="onLoginSuccess($event)" (close)="closeComponent()" (loginSuccess)="showSuccessLogin()" (registerSuccess)="onRegisterSuccess()"></app-login>
     </div>
 </div>
 
 <div *ngIf="profileOn" class="overlay">
     <div class="my-profile">
-        <app-my-profile (close)="closeProfileComponent()" (logout)="logout()"></app-my-profile>
+        <app-my-profile (close)="closeProfileComponent()" (logout)="logout()" (deleteSuccess)="showDeleteMessage()"></app-my-profile>
     </div>
 </div>
 

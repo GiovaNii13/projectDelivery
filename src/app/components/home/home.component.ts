@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from '../login/login.component';
 import { CommonModule } from '@angular/common';
-import { CadastroComponent } from '../cadastro/cadastro.component';
 import { MyProfileComponent } from '../my-profile/my-profile.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -37,6 +36,7 @@ export class HomeComponent implements OnInit {
   successMessage: string | null = null;
   userName!: any;
   clickedIndex: number | null = null;
+  userType!: number;
 
   constructor(
     private messageService: MessageService,
@@ -90,6 +90,22 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('loggedUser');
     this.logged = false;
     this.profileOn = false;
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Aviso',
+      detail: 'Você saiu da sua conta!',
+    });
+  }
+
+  showDeleteMessage() {
+    localStorage.removeItem('loggedUser');
+    this.logged = false;
+    this.profileOn = false;
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Aviso',
+      detail: 'Você deletou sua conta!',
+    });
   }
 
   showMountYoursContent() {
@@ -157,7 +173,7 @@ export class HomeComponent implements OnInit {
     this.messageService.add({
       severity: 'success',
       summary: 'Sucesso',
-      detail: `Seja bem vindo ${this.userName}!`,
+      detail: 'Seja bem vindo',
     });
   }
 
@@ -190,6 +206,8 @@ export class HomeComponent implements OnInit {
     if (usuarioSalvo) {
       const usuario = JSON.parse(usuarioSalvo);
       this.userName = usuario.name;
+      this.userType = usuario.type;
+      console.log(this.userType)
     }
   }
 
@@ -217,16 +235,23 @@ export class HomeComponent implements OnInit {
   }
 
   handleCardClick(product: any, index: number) {
-    // Adicione ao carrinho
-    this.addToCart(product);
+    if (this.logged) {
+      this.addToCart(product);
+      this.clickedIndex = index;
+      setTimeout(() => {
+        this.clickedIndex = null;
+      }, 500);
+    } else {
+      this.loginOn = true;
+    }
+  }
 
-    // Marque o card como clicado
-    this.clickedIndex = index;
-
-    // Remova o efeito após 500ms
-    setTimeout(() => {
-      this.clickedIndex = null;
-    }, 500);
+  onRegisterSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Sucesso',
+      detail: 'Cadastro realizado!',
+    });
   }
 
   ngOnInit(): void {

@@ -108,13 +108,12 @@ export class ExtrasComponent implements OnInit {
     } else {
       this.chooseFreeAddsCount[itemId] = { title: item.title, count: 1 };
     }
-    const totalAdds = Object.values(this.chooseFreeAddsCount).reduce((sum, item) => sum + item.count, 0);
-    if (this.productSize != 1000) {
+    const totalAdds = Object.values(this.chooseFreeAddsCount).reduce((sum, item: any) => sum + item.count, 0);
+    if (this.productSize !== 1000) {
       this.blockAdd = totalAdds >= 3;
     } else {
       this.blockAdd = totalAdds >= 5;
     }
-    console.log(this.chooseFreeAddsCount);
   }
   
   decrementFreeAdds(item: any) {
@@ -125,14 +124,12 @@ export class ExtrasComponent implements OnInit {
         delete this.chooseFreeAddsCount[itemId];
       }
     }
-    const totalAdds = Object.values(this.chooseFreeAddsCount).reduce((sum, item) => sum + item.count, 0);
-    if (this.productSize != 1000) {
+    const totalAdds = Object.values(this.chooseFreeAddsCount).reduce((sum, item: any) => sum + item.count, 0);
+    if (this.productSize !== 1000) {
       this.blockAdd = totalAdds >= 3;
     } else {
-      this.blockpecialAdds = totalAdds >= 5;
+      this.blockAdd = totalAdds >= 5; 
     }
-  
-    console.log(this.chooseFreeAddsCount);
   }
 
   incrementSpecialAdds(item: any) {

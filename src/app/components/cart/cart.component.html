@@ -98,11 +98,12 @@
     <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
   </svg>
   <h5>Endereço</h5>
-  <select class="form-select" placeholder="Selecione o seu endereço" [(ngModel)]="selectedAddress">
+  <label for="">Selecione o seu endereço</label>
+  <select class="form-select" [(ngModel)]="selectedAddress">
     <option *ngFor="let address of addresses" [ngValue]="address">
       {{ address.adressName }} - {{ address.street }}, {{ address.number }}
     </option>
   </select>
-  <button class="btn btn-success" type="button" (click)="submitOrder()">Finalizar pedido</button>
+  <button [disabled]="!selectedAddress" class="btn btn-success" type="button" (click)="submitOrder()" style="margin-top: 50px;">Finalizar pedido</button>
 </div>
 

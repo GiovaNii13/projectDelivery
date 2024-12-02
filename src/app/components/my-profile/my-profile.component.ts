@@ -4,18 +4,22 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { AdressComponent } from '../adress/adress.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-my-profile',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, AdressComponent],
+  imports: [ReactiveFormsModule, CommonModule, AdressComponent, ToastModule],
   templateUrl: './my-profile.component.html',
-  styleUrl: './my-profile.component.scss'
+  styleUrl: './my-profile.component.scss',
+  providers: [MessageService]
 })
 export class MyProfileComponent implements OnInit {
 
   @Output() close = new EventEmitter<void>();
   @Output() logout = new EventEmitter<void>();
+  @Output() deleteSuccess = new EventEmitter<void>();
 
   email: string | undefined;
   id: string | undefined;
@@ -36,9 +40,11 @@ export class MyProfileComponent implements OnInit {
   adressEdit: boolean = false;
   cepOff: boolean = true;
   selectedAdress: any = null;
+  emailDisabled: boolean = true;
 
   constructor(
     private fb: FormBuilder,
+    private messageService: MessageService,
     private authService: AuthService
   ) {}
 
@@ -91,7 +97,6 @@ export class MyProfileComponent implements OnInit {
   enableForm() {
     this.editOn = true;
     this.updateFormGroup.get('name')?.enable();
-    this.updateFormGroup.get('email')?.enable();
     this.updateFormGroup.get('password')?.enable();
     this.updateFormGroup.get('confirmPassword')?.enable();
   }
@@ -105,21 +110,31 @@ export class MyProfileComponent implements OnInit {
   }
 
   updateUser() {
-    if(this.updateFormGroup.valid) {
+    if (this.updateFormGroup.valid) {
       const password = this.updateFormGroup.get('password')?.value;
       const confirmPassword = this.updateFormGroup.get('confirmPassword')?.value;
       if (password === confirmPassword) {
-        const userData = {
-          id: this.id,
-          name: this.updateFormGroup.get('name')?.value,
-          email: this.updateFormGroup.get('email')?.value,
-          password: password
-        };
-        this.authService.updateUser(userData).subscribe(() => {
-          localStorage.removeItem('loggedUser');
-          localStorage.setItem('loggedUser', JSON.stringify(userData));
+        const loggedUser = JSON.parse(localStorage.getItem('loggedUser') || '{}');
+        this.authService.getUserById(loggedUser.id).subscribe((currentUser: any) => {
+          const updatedUser = {
+            ...currentUser,
+            name: this.updateFormGroup.get('name')?.value,
+            email: this.updateFormGroup.get('email')?.value,
+            password: password
+          };
+          this.authService.updateUser(updatedUser).subscribe(() => {
+            localStorage.setItem('loggedUser', JSON.stringify(updatedUser));
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: 'Perfil atualizado!',
+            });
+            this.disableForm();
+            this.editOn = false;
+            this.showConfirmPassword = false;
+            this.showPassword = false;
+          });
         });
-        this.closeProfileComponent();
       } else {
         console.log('As senhas estão diferentes');
       }
@@ -127,12 +142,14 @@ export class MyProfileComponent implements OnInit {
       console.log('Formulário inválido');
     }
   }
+  
 
   deleteUser() {
     this.authService.deleteUser().subscribe(() => {
       localStorage.removeItem('loggedUser');
     });
     this.deleteOn = false;
+    this.deleteSuccess.emit();
   }
 
   cancelDelete() {

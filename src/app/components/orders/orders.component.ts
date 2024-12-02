@@ -21,11 +21,26 @@ export class OrdersComponent implements OnInit {
     this.getOrders();
   }
 
+  getOrderStatusText(status: string): string {
+    switch (status) {
+      case 'pending':
+        return 'Pendente';
+      case 'preparing':
+        return 'Preparando';
+      case 'delivering':
+        return 'Pedido com o entregador';
+      case 'finished':
+        return 'Pedido entregue';
+      default:
+        return 'Status desconhecido';
+    }
+  }
+
   getOrders(): void {
     const loggedUser = localStorage.getItem('loggedUser');
     const userId = loggedUser ? JSON.parse(loggedUser).id : null;
     this.authService.getUserOrders(userId).subscribe(orders => {
-      this.orders = orders.reverse(); // Inverte a ordem dos pedidos
+      this.orders = orders.reverse();
       console.log('Pedidos do usuário:', this.orders);
     });
   }

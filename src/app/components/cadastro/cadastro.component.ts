@@ -18,7 +18,9 @@ export class CadastroComponent implements OnInit {
   disabledBtn: boolean = false;
   invalidFields: boolean = false;
   diferentsPasswords: boolean = false;
+  emailExists: boolean = false;
   @Output() close = new EventEmitter<void>();
+  @Output() registered = new EventEmitter<void>();
 
   closeRegisterComponent() {
     this.close.emit();
@@ -30,7 +32,7 @@ export class CadastroComponent implements OnInit {
   ) {
   }
 
-  cadastroFormBuilder() {
+  registerFormBuilder() {
     this.registerFormGroup = this.fb.group({
       name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(300)]],
       email: [null, [Validators.required, Validators.email]],
@@ -54,29 +56,39 @@ export class CadastroComponent implements OnInit {
 
   registerSubmit() {
     if (this.registerFormGroup.valid) {
-      const password = this.registerFormGroup.get('password')?.value;
-      const confirmPassword = this.registerFormGroup.get('confirmPassword')?.value;
-      if (password !== confirmPassword) {
-        return;
-      }
-      const userData = {
-        name: this.registerFormGroup.get('name')?.value,
-        email: this.registerFormGroup.get('email')?.value,
-        password: password
-      };
-      this.authService.registerUser(userData).subscribe(
-        response => {
-          console.log('Usuário cadastrado com sucesso:', response);
-          this.closeRegisterComponent();
+      const email = this.registerFormGroup.get('email')?.value;
+      this.authService.checkLogin(email).subscribe(
+        (users) => {
+          if (users.length > 0) {
+            this.emailExists = true;
+          } else {
+            this.emailExists = false;
+            const userData = {
+              name: this.registerFormGroup.get('name')?.value,
+              email: email,
+              password: this.registerFormGroup.get('password')?.value,
+              type: 1
+            };
+            this.authService.registerUser(userData).subscribe(
+              response => {
+                this.close.emit();
+                this.registered.emit();
+              },
+              error => {
+                console.error('Erro ao cadastrar o usuário:', error);
+              }
+            );
+          }
         },
         error => {
-          console.error('Erro ao cadastrar o usuário:', error);
+          console.error('Erro ao verificar e-mail:', error);
         }
       );
     } else {
       this.invalidFields = true;
     }
   }
+  
 
   aplicaCssErro(campo: string) {
     return {
@@ -99,6 +111,6 @@ export class CadastroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cadastroFormBuilder();
+    this.registerFormBuilder();
   }
 }

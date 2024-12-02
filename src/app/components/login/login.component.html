@@ -41,7 +41,8 @@
 
     <div *ngIf="registerOn" class="overlay">
       <div class="register">
-          <app-cadastro (close)="closeLoginComponent()"></app-cadastro>
+          <app-cadastro (close)="closeLoginComponent()" (registered)="showRegisterSuccess()"></app-cadastro>
       </div>
   </div>
 </form>
+<p-toast></p-toast>

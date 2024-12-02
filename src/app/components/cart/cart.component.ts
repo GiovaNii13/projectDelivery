@@ -68,7 +68,7 @@ export class CartComponent implements OnInit {
   
     this.authService.getUser(userId).subscribe(user => {
       const currentOrders = user.orders || [];
-      const nextOrderNumber = currentOrders.length + 1; // Calcula o próximo número do pedido
+      const nextOrderNumber = currentOrders.length + 1;
       const change = this.selectedPaymentMethod === 'Dinheiro' && this.changeNeeded
         ? this.changeNeeded - this.totalPrice
         : null;

@@ -17,7 +17,7 @@
     <div class="order-summary">
       <div>
         <h4 class="order-id">Pedido: {{ order.orderNumber }}</h4>
-        <p class="order-status"><strong>Status:</strong> {{ order.status }}</p>
+        <p class="order-status"><strong>Status:</strong> {{ getOrderStatusText(order.status) }}</p>
         <p class="order-status"><strong>Endereço:</strong> {{ order.selectedAddress.adressName }}, 
           {{ order.selectedAddress.street }}, {{ order.selectedAddress.number }}</p>
       </div>

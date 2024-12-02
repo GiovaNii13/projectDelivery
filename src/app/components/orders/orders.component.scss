@@ -86,7 +86,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    border-bottom: 0.1px solid gray;
   
     p {
       font-size: 0.9rem;
@@ -103,7 +102,6 @@
     .item {
       display: flex;
       flex-direction: column;
-      border-bottom: 0.5px solid gray;
   
       .item-title {
         font-weight: bold;

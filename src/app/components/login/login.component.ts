@@ -3,19 +3,23 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { CadastroComponent } from "../cadastro/cadastro.component";
 import { AuthService } from '../../services/auth.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, CadastroComponent],
+  imports: [ReactiveFormsModule, CommonModule, CadastroComponent, ToastModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  providers: [MessageService]
 })
 export class LoginComponent implements OnInit {
 
   @Output() close = new EventEmitter<void>();
   @Output() logged = new EventEmitter<boolean>();
   @Output() loginSuccess = new EventEmitter<void>();
+  @Output() registerSuccess = new EventEmitter<void>();
 
   closeLoginComponent() {
     this.close.emit();
@@ -30,6 +34,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private messageService: MessageService,
     private authService: AuthService
   ) {}
 
@@ -81,6 +86,10 @@ export class LoginComponent implements OnInit {
 
   closeRegisterComponent() {
     this.registerOn = false;
+  }
+
+  showRegisterSuccess() {
+    this.registerSuccess.emit();
   }
 
   ngOnInit(): void {
