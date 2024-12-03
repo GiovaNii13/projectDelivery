@@ -29,7 +29,7 @@ export class OrdersComponent implements OnInit {
         return 'Preparando';
       case 'delivering':
         return 'Pedido com o entregador';
-      case 'finished':
+      case 'delivered':
         return 'Pedido entregue';
       default:
         return 'Status desconhecido';

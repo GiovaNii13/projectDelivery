@@ -41,6 +41,7 @@ export class MyProfileComponent implements OnInit {
   cepOff: boolean = true;
   selectedAdress: any = null;
   emailDisabled: boolean = true;
+  differentPassword: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -133,10 +134,12 @@ export class MyProfileComponent implements OnInit {
             this.editOn = false;
             this.showConfirmPassword = false;
             this.showPassword = false;
+            this.differentPassword = false;
           });
         });
       } else {
         console.log('As senhas estão diferentes');
+        this.differentPassword = true;
       }
     } else {
       console.log('Formulário inválido');
